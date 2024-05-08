@@ -1,5 +1,17 @@
 # midreads
 
+sprint one goals:
+
+Front-end: set up login page and create new account form
+  -get setup for api request to post a new user
+
+Back-end: setting up database
+      -getting api endpoints setup for login and create new user
+      -(/createUser) for create user form
+      -(/login for the login page)
+      -(/Home for the landing page)
+
+
 For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.
 
 Julian Duran  
