@@ -1,0 +1,14 @@
+{
+  "name": "midreads",
+  "version": "1.0.0",
+  "description": "For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ]
+}
