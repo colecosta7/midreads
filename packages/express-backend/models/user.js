@@ -14,13 +14,20 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    password: {
+      type: String,
+      required: true,
+      trim: true
+    },
     booksRead: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Book' 
+      ref: 'Book',
+      default: []
     }],
     booksToRead: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Book' 
+      ref: 'Book',
+      default: []
     }],
     bio: {
         type: String,
@@ -28,11 +35,13 @@ const UserSchema = new mongoose.Schema(
     },
     friends: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User' 
+      ref: 'User',
+      default: []
     }],
     photo: {
         data: Buffer, // Binary data of the image
-        contentType: String // MIME type of the image (e.g., image/jpeg, image/png)
+        contentType: String, // MIME type of the image (e.g., image/jpeg, image/png),
+        deafult: ""
     }
   },
   { collection: "users_list" }
