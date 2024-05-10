@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import userModel from "./user.js";
-import bookModel from "./book.js";
+import userModel from "./user.mjs";
+import bookModel from "./book.mjs";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -39,9 +39,8 @@ const UserSchema = new mongoose.Schema(
       default: []
     }],
     photo: {
-        data: Buffer, // Binary data of the image
-        contentType: String, // MIME type of the image (e.g., image/jpeg, image/png),
-        deafult: ""
+       type: String,
+       default: '../Default_pfp.jpg'
     }
   },
   { collection: "users_list" }

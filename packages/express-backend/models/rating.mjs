@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import userModel from "./user.js";
-import bookModel from "./book.js";
+import userModel from "./user.mjs";
+import bookModel from "./book.mjs";
 
 const RatingSchema = new mongoose.Schema(
   {
