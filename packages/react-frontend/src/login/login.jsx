@@ -52,7 +52,7 @@ const Login = (props) => {
                 onClick={() => {
                     navigate("/createaccount")
                 }} 
-                value={'create account.'} 
+                value={'new account.'} 
                 className="button"
                 style={{marginTop: 4 + 'em'}}
                 />

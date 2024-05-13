@@ -43,7 +43,7 @@ function CreateAccount() {
             className="button"
             type="button" 
             onClick={onCreateClick} 
-            value={'Create Account'} />
+            value={'create account.'} />
       </div>
       </div>
   )
