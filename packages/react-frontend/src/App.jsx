@@ -1,22 +1,24 @@
 import './App.css'
-//import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-import Home from "./home"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Home from "./homepage/home"
+import Login from "./login/login"
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [username, setUsername] = useState('')
+
   return (
-    <Home />
-    // <Router>
-    //   <Switch>
-    //     <Route exact path="/">
-    //       <Redirect to="/home" />
-    //     </Route>
-    //     <Route path="/home">
-    //       <Home />
-    //     </Route>
-    //     {/* other routes */}
-    //   </Switch>
-    // </Router>
-  );
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUsername={setUsername} /> } />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
 
 export default App;
