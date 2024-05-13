@@ -22,11 +22,15 @@ function getRating(by, about) {
 }
 
 function getAllRatingsAbout(about) {
-    return ratingModel.find({about: about })
+  return ratingModel.find({about: about })
 }
 
 function getAllRatingsBy(by) {
-    return ratingModel.find({by: by})
+  return ratingModel.find({by: by})
+}
+
+function averageRatingsFor() {
+  
 }
 
 export default {

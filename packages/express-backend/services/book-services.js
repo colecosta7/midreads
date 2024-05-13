@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ratingModel from "../models/book.mjs";
+import bookModel from "../models/book.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -10,8 +10,18 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => console.log('Connected to MongoDB Atlas'))
   .catch((error) => console.error('Error connecting to MongoDB Atlas:', error));
 
-//add services here
+function addBook(book) {
+  const bookToAdd = new bookModel(book);
+  const promise = bookToAdd.save();
+  return promise;
+}
+  
+function findBooksWithSubstring(substring) { //will find all books containing substring, use for search
+  const promise = bookModel.find({ title: { $regex: substring, $options: 'i' } });
+  return promise;
+}
 
 export default {
-
+  addBook,
+  findBooksWithSubstring
 };
