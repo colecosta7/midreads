@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BookTable from './booktable';  
-import Header from './header';  
-import Sidebar from './sidebar';  
+import BookTable from './booktable';
+import Header from './header';
+import Sidebar from './sidebar';
 import './homePage.css'
 
 const Home = () => {
