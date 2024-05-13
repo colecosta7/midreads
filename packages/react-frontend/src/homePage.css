@@ -1,121 +1,114 @@
-/* General Styles for the Entire Page */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif;
+    background-color: #f0f0f0;
+}
+
 .container {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .main-content {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
+    flex-grow: 100;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    margin-top: 230px;
+    color: rgb(0, 0, 0);
 }
 
-/* Header Styles */
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    background-color: #c5c5c5;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin-top: 230px
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #202020;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-left: 3px solid transparent;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #e1e1e1;
+    border-left: 3px solid #ff0000;
+}
+
+
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+    justify-content: center;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0;
 }
 
-.header .logo {
+.logo {
     font-size: 24px;
     font-weight: bold;
-    color: #343a40;
+    color: black;
+    margin-right: 100px;
 }
 
-.header input[type="text"] {
-    flex-grow: 1;
-    margin: 0 20px;
-    padding: 8px;
-    border: 1px solid #ced4da;
+input[type="text"] {
+    width: 400px;
+    padding: 6px;
+    margin-right: 100px;
+    border: 1px solid #ccc;
+    background-color: white;
     border-radius: 4px;
 }
 
-.header button {
-    padding: 8px 16px;
-    background-color: #007bff;
+button {
+    padding: 10px 20px;
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
 }
 
-.header button:hover {
-    background-color: #0056b3;
+button:hover {
+    background-color: #004494;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 200px;
-    background-color: #343a40;
-    color: white;
-    padding: 20px;
-    overflow-y: auto;
-}
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.sidebar ul li:hover {
-    background-color: #495057;
-}
-
-/* Book Table Styles */
 .book-table {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.book-table table {
     width: 100%;
     border-collapse: collapse;
-    border-spacing: 0;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .book-table th,
 .book-table td {
-    border: 1px solid #dee2e6;
-    padding: 12px;
     text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
 }
 
 .book-table th {
-    background-color: #e9ecef;
+    background-color: #f9f9f9;
 }
 
-.book-table td {
-    background-color: #ffffff;
-}
-
-.book-table tr:nth-child(odd) td {
-    background-color: #f8f9fa;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-    }
-
-    .header input[type="text"] {
-        margin: 10px 0;
-        width: auto;
-    }
+.book-table tr:hover {
+    background-color: #f1f1f1;
 }

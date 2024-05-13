@@ -1,22 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import { useState } from 'react';
-import './homePage.css';
-
-const Header = ({ onSearch }) => {
-    return (
-        <div className="header">
-            <div className="logo">LOGO</div>
-            <input
-                type="text"
-                placeholder="Search books..."
-                onChange={(e) => onSearch(e.target.value)}
-            />
-            <button onClick={() => alert("Add book clicked")}>Add a book</button>
-        </div>
-    );
-}
-
+import React, { useState } from 'react';
+import BookTable from './booktable';  
+import Header from './header';  
+import Sidebar from './sidebar';  
+import './homePage.css'
 
 const Home = () => {
     const initialBooks = [
@@ -44,9 +30,9 @@ const Home = () => {
     return (
         <div className="container">
             <Header onSearch={handleSearch} />
+            <Sidebar />
             <div className="main-content">
-                {/* <Sidebar />
-                <BookTable books={books} /> */}
+                <BookTable books={books} />
             </div>
         </div>
     );
