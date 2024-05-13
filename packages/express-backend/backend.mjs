@@ -1,7 +1,7 @@
 // backend.js
 import express from "express";
 import cors from "cors";
-import userServices from "./userServices.mjs";
+import userServices from "./services/userServices.mjs";
 const app = express();
 const port = 8000;
 

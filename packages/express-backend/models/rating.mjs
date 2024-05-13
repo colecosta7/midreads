@@ -24,4 +24,4 @@ const RatingSchema = new mongoose.Schema(
 
 const Rating = mongoose.model("Rating", RatingSchema);
 
-export default User;
+export default Rating;

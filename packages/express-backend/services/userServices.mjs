@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import userModel from "./models/user.mjs";
+import userModel from "../models/user.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();
