@@ -10,32 +10,42 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => console.log('Connected to MongoDB Atlas'))
   .catch((error) => console.error('Error connecting to MongoDB Atlas:', error));
 
-
 function addRating(rating) {
   const ratingToAdd = new ratingModel(rating);
   const promise = ratingToAdd.save();
   return promise;
 }
 
-function getRating(by, about) {
-  return ratingModel.find({ by: by, about: about })
+function getRating(by, bookID) {
+  return ratingModel.find({ by: by, about: bookID })
 }
 
-function getAllRatingsAbout(about) {
-  return ratingModel.find({about: about })
+function getAllRatingsAbout(bookID) {
+  return ratingModel.find({about: bookID })
 }
 
-function getAllRatingsBy(by) {
-  return ratingModel.find({by: by})
+function getAllRatingsBy(userID) {
+  return ratingModel.find({by: userID})
 }
 
-function averageRatingsFor() {
-  
+function averageRatingFor(bookID) {
+  const promise = ratingModel.find({about: bookID});
+
+  promise.then((matchingEntries) => {
+    if (matchingEntries == 0) {
+      return undefined
+    } else {
+      const sum = matchingEntries.reduce((total, entry) => total + entry.rating, 0);
+      const average = sum / matchingEntries.length;
+      return average;
+    }
+  }).catch((error) => {console.log(error)});
 }
 
 export default {
     addRating,
     getRating,
     getAllRatingsAbout,
-    getAllRatingsBy
+    getAllRatingsBy,
+    averageRatingFor
 };
