@@ -2,15 +2,18 @@
   "name": "express-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "backend.js",
+  "main": "backend.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon backend.js",
-    "start": "node backend.js"
+    "dev": "npx nodemon backend.mjs",
+    "start": "node backend.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4"
   }
 }
