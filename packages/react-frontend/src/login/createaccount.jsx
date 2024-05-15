@@ -2,6 +2,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+const auth = getAuth();
 
 function CreateAccount() {
   const [username, setUsername] = useState('')
@@ -10,7 +13,14 @@ function CreateAccount() {
   const navigate = useNavigate()
 
   const onCreateClick = () => {
-      // ADD POST TO DB
+      createUserWithEmailAndPassword(auth, username, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
       navigate("/login")
       }
 
