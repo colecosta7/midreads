@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
-const auth = getAuth();
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase'; // Ensure the correct import path
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 function CreateAccount() {
   const [username, setUsername] = useState('')
