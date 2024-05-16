@@ -32,7 +32,7 @@ const Login = (props) => {
         <div>
             <input
             value={username}
-            placeholder="Enter your username here"
+            placeholder="Enter your email here"
             onChange={(ev) => setUsername(ev.target.value)}
             className="inputbox"
             />
