@@ -9,6 +9,7 @@ const Header = ({ onSearch }) => {
                 type="text"
                 placeholder="Search books..."
                 onChange={(e) => onSearch(e.target.value)}
+                style={{ color: "black" }}
             />
             <button onClick={() => alert("Add book clicked")}>Add a book</button>
         </div>

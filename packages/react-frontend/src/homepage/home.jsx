@@ -5,27 +5,42 @@ import Sidebar from './sidebar';
 import './homePage.css'
 
 const Home = () => {
-    const initialBooks = [
-        { title: "Sample Book 1", author: "Author 1", pages: 300, rating: "4.5/5" },
-        { title: "Sample Book 2", author: "Author 2", pages: 250, rating: "4.0/5" },
-        // Add more books as needed
-    ];
-
-    const [books, setBooks] = useState(initialBooks);
+    const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (search) => {
         setSearchTerm(search);
-        if (search !== "") {
-            const filteredBooks = initialBooks.filter(book =>
-                book.title.toLowerCase().includes(search.toLowerCase()) ||
-                book.author.toLowerCase().includes(search.toLowerCase())
-            );
-            setBooks(filteredBooks);
-        } else {
-            setBooks(initialBooks);
-        }
+        getBooks(search)
+            .then(response => {
+                console.log(response);
+                if(response.status === 200) {
+                    return response.json();
+                } else if (response.status === 404) {
+                    return([]);
+                }
+            })
+            .then(bookList => {
+                setBooks(bookList); 
+                console.log(bookList);
+            })
+            .catch(error => {
+                console.error('Error getting books:', error);
+            });
     };
+
+    function getBooks(search) {
+        const url = new URL("http://localhost:8000/getBook");
+        url.searchParams.append("title", search);
+
+        const promise = fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+    
+        return promise;
+      }
 
     return (
         <div className="container">

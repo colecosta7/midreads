@@ -15,11 +15,11 @@ const BookTable = ({ books }) => {
             </thead>
             <tbody>
                 {books.map(book => (
-                    <tr key={book.title}>
+                    <tr key={book._id}>
                         <td>{book.title}</td>
-                        <td>{book.author}</td>
-                        <td>{book.pages}</td>
-                        <td>{book.rating}</td>
+                        <td>{book.authors}</td>
+                        <td>{book.num_pages}</td>
+                        <td>{book.average_rating}</td>
                         <td><button onClick={() => alert("Will read later")}>Read Later</button></td>
                         <td><button onClick={() => alert("Rating...")}>Rate It</button></td>
                     </tr>
