@@ -40,6 +40,7 @@ function CreateAccount() {
       <br />
       <div>
           <input
+          type="password"
           value={password}
           placeholder="Enter new password here"
           onChange={(ev) => setPassword(ev.target.value)}
