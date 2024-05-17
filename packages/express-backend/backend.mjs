@@ -43,13 +43,28 @@ app.post("/addBook", async (req, res) => {
 
 app.get("/getBook", async (req, res) => {
   const title = req.query.title;
-  let promise = bookServices.findBooksWithSubstring(title);
-  promise.then((book) => {
-    if(book.length != 0)
-      res.status(200).json(book);
-    else 
-      res.status(404).send("Book not found.");
-  })
+  const page = parseInt(req.query.page) || 1; 
+  const pageSize = parseInt(req.query.pageSize) || 10; 
+
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = page * pageSize;
+
+  let countPromise =  bookServices.findCountOfBooksWithSubstring(title);
+  countPromise.then(count => {
+    let returnObj = {count: count, data: [], start: startIndex, stop: endIndex}
+    let promise = bookServices.findBooksWithSubstring(title, startIndex, endIndex);
+    promise.then((book) => {
+      if(book.length != 0) {
+        returnObj.data = book;
+        res.status(200).json(returnObj);
+      }
+      else {
+        res.status(404).send("Book not found.");
+      }
+    })}).catch(error => {
+      console.error('Error getting books:', error);
+      res.status(500).send("Internal server error");
+    });
 });
 
 app.listen(port, () => {

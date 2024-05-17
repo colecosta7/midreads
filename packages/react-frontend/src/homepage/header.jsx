@@ -2,6 +2,7 @@ import React from 'react';
 
 
 const Header = ({ onSearch }) => {
+    
     return (
         <div className="header">
             <div className="logo">MidReads</div>
