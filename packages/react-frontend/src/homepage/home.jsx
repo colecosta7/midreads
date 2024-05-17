@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import BookTable from './booktable';
-import Header from './header';
-import Sidebar from './sidebar';
-import './homePage.css'
+import Header from '../header';
+import Sidebar from '../sidebar';
+import './homePage.css';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -13,14 +13,14 @@ const Home = () => {
         getBooks(search)
             .then(response => {
                 console.log(response);
-                if(response.status === 200) {
+                if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 404) {
-                    return([]);
+                    return ([]);
                 }
             })
             .then(bookList => {
-                setBooks(bookList); 
+                setBooks(bookList);
                 console.log(bookList);
             })
             .catch(error => {
@@ -33,14 +33,14 @@ const Home = () => {
         url.searchParams.append("title", search);
 
         const promise = fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
         });
-    
+
         return promise;
-      }
+    }
 
     return (
         <div className="container">
