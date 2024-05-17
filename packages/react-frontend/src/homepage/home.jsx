@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
 import Header from '../header';
 import Sidebar from '../sidebar';
-import PaginationButton from './PaginationButton' ;
-import './homePage.css';;
+import PaginationButton from './PaginationButton';
+import './homePage.css';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -12,35 +12,35 @@ const Home = () => {
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        // This function will run when the component is loaded into the page
         handleSearch("");
     }, []);
 
-    const handleSearchInput = debounce((search) => {
-        setSearchTerm(search);
-        handleSearch(search);
-    }, 300);
-
-    const handleSearch = (search) => {
-        setCurrentPage(1);
-        getBooks(search, 1)
+    useEffect(() => {
+        getBooks(searchTerm, currentPage)
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
-                    console.log(response.data)
                     return response.json();
                 } else if (response.status === 404) {
-                    return ([]);
+                    return { data: [], count: 0 };
                 }
             })
             .then(bookList => {
                 setBooks(bookList.data);
-                setTotalPages(Math.floor(bookList.count/10));
-                console.log(bookList);
+                setTotalPages(Math.ceil(bookList.count / 10));
             })
             .catch(error => {
                 console.error('Error getting books:', error);
             });
+    }, [currentPage, searchTerm]);
+
+    const handleSearchInput = debounce((search) => {
+        setSearchTerm(search);
+        setCurrentPage(1);
+    }, 300);
+
+    const handleSearch = (search) => {
+        setSearchTerm(search);
+        setCurrentPage(1);
     };
 
     function getBooks(search, currentPage) {
@@ -48,39 +48,20 @@ const Home = () => {
         url.searchParams.append("title", search);
         url.searchParams.append("page", currentPage);
 
-        const promise = fetch(url, {
+        return fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             }
         });
-
-        return promise;
-    };
+    }
 
     const handlePreviousPage = () => {
         setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
     };
-    
+
     const handleNextPage = () => {
-        console.log("next page")
-        setCurrentPage(Math.min(currentPage + 1, totalPages)).then(
-        getBooks(searchTerm, currentPage)
-            .then(response => {
-                console.log(response);
-                if(response.status === 200) {
-                    return response.json();
-                } else if (response.status === 404) {
-                    return [];
-                }
-            })
-            .then(bookList => {
-                setBooks(bookList.data); 
-                console.log(bookList);
-            }))
-            .catch(error => {
-                console.error('Error getting books:', error);
-            });
+        setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
     };
 
     return (
@@ -97,15 +78,15 @@ const Home = () => {
             </div>
         </div>
     );
-}
+};
 
 function debounce(func, delay) {
     let timerId;
     return function (...args) {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
     };
 }
 
