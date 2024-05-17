@@ -16,31 +16,32 @@ const Home = () => {
         handleSearch("");
     }, []);
 
-    const handleSearchInput = debounce((search) => {
-        setSearchTerm(search);
-        handleSearch(search);
-    }, 300);
-
-    const handleSearch = (search) => {
-        setCurrentPage(1);
-        getBooks(search, 1)
+    useEffect(() => {
+        getBooks(search, currentPage)
             .then(response => {
-                console.log(response);
                 if (response.status === 200) {
-                    console.log(response.data)
                     return response.json();
                 } else if (response.status === 404) {
-                    return ([]);
+                    return ({count:0, data:[]});
                 }
             })
             .then(bookList => {
                 setBooks(bookList.data);
                 setTotalPages(Math.floor(bookList.count/10));
-                console.log(bookList);
             })
             .catch(error => {
                 console.error('Error getting books:', error);
             });
+    }, [currentPage, searchTerm]);
+
+    const handleSearchInput = debounce((search) => {
+        setSearchTerm(search);
+        setCurrentPage(1);
+    }, 300);
+
+    const handleSearch = (search) => {
+        setSearchTerm(search);
+        setCurrentPage(1);
     };
 
     function getBooks(search, currentPage) {
@@ -48,14 +49,12 @@ const Home = () => {
         url.searchParams.append("title", search);
         url.searchParams.append("page", currentPage);
 
-        const promise = fetch(url, {
+        return fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             }
         });
-
-        return promise;
     };
 
     const handlePreviousPage = () => {
@@ -63,24 +62,7 @@ const Home = () => {
     };
     
     const handleNextPage = () => {
-        console.log("next page")
-        setCurrentPage(Math.min(currentPage + 1, totalPages)).then(
-        getBooks(searchTerm, currentPage)
-            .then(response => {
-                console.log(response);
-                if(response.status === 200) {
-                    return response.json();
-                } else if (response.status === 404) {
-                    return [];
-                }
-            })
-            .then(bookList => {
-                setBooks(bookList.data); 
-                console.log(bookList);
-            }))
-            .catch(error => {
-                console.error('Error getting books:', error);
-            });
+        setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
     };
 
     return (
