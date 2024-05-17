@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
 import Header from '../header';
 import Sidebar from '../sidebar';
-import PaginationButton from './PaginationButton' ;
-import './homePage.css';;
+import PaginationButton from './PaginationButton';
+import './homePage.css';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -12,22 +12,21 @@ const Home = () => {
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        // This function will run when the component is loaded into the page
         handleSearch("");
     }, []);
 
     useEffect(() => {
-        getBooks(search, currentPage)
+        getBooks(searchTerm, currentPage)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
                 } else if (response.status === 404) {
-                    return ({count:0, data:[]});
+                    return { data: [], count: 0 };
                 }
             })
             .then(bookList => {
                 setBooks(bookList.data);
-                setTotalPages(Math.floor(bookList.count/10));
+                setTotalPages(Math.ceil(bookList.count/10));
             })
             .catch(error => {
                 console.error('Error getting books:', error);
@@ -55,12 +54,12 @@ const Home = () => {
                 "Content-Type": "application/json",
             }
         });
-    };
+    }
 
     const handlePreviousPage = () => {
         setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
     };
-    
+
     const handleNextPage = () => {
         setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
     };
@@ -79,15 +78,15 @@ const Home = () => {
             </div>
         </div>
     );
-}
+};
 
 function debounce(func, delay) {
     let timerId;
     return function (...args) {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
     };
 }
 
