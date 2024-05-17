@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
-import Header from './header';
-import Sidebar from './sidebar';
+import Header from '../header';
+import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton' ;
-import './homePage.css';
+import './homePage.css';;
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -26,15 +26,15 @@ const Home = () => {
         getBooks(search, 1)
             .then(response => {
                 console.log(response);
-                if(response.status === 200) {
+                if (response.status === 200) {
                     console.log(response.data)
                     return response.json();
                 } else if (response.status === 404) {
-                    return([]);
+                    return ([]);
                 }
             })
             .then(bookList => {
-                setBooks(bookList.data); 
+                setBooks(bookList.data);
                 setTotalPages(Math.floor(bookList.count/10));
                 console.log(bookList);
             })
@@ -49,12 +49,12 @@ const Home = () => {
         url.searchParams.append("page", currentPage);
 
         const promise = fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
         });
-    
+
         return promise;
     };
 
