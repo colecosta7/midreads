@@ -18,9 +18,9 @@ const BookTable = ({ books }) => {
                 {books.map(book => (
                     <tr key={book._id}>
                         <td>{book.title}</td>
-                        <td>{book.authors}</td>
-                        <td>{book.num_pages}</td>
-                        <td>{book.average_rating}</td>
+                        <td>{book.author}</td>
+                        <td>{book.numPages}</td>
+                        <td>{book.ranking}</td>
                         <td><button onClick={() => alert("Will read later")}>Read Later</button></td>
                         <td><button onClick={() => alert("Rating...")}>Rate It</button></td>
                     </tr>
