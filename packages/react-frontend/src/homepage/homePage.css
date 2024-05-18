@@ -1,5 +1,12 @@
-body,
-html {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Times New Roman', serif;
@@ -31,11 +38,15 @@ html {
 
 .container {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    min-height: 100vh;
+    flex-direction: column;
+    height:100vh;
+}
+
+.content-wrapper {
+    display: flex;
+    flex: 1;
+    margin-top: 50px;
     overflow: hidden;
-    /* Prevent overflow in the container */
 }
 
 .sidebar {
@@ -54,9 +65,8 @@ html {
     /* Adjust width to 80% of the container */
     padding: 20px;
     background: white;
-    margin-top: 50px;
     color: rgb(0, 0, 0);
-    overflow: auto;
+    overflow-y: auto;
     /* Allow scrolling within the main content */
 }
 
@@ -79,7 +89,7 @@ html {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1000; /* Ensure the header is above other elements */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,6 +132,20 @@ button:hover {
     border-collapse: collapse;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; /* Adjust as needed for spacing */
+    position: relative; /* Ensure positioning context for z-index */
+    z-index: 0; /* Ensure the table is below the header */
+}
+.book-table tbody tr:nth-of-type(even) {
+    background-color:rgb(234, 228, 228);
+}
+
+.book-table th {
+    background-color: #f9f9f9;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
 .book-table th,
@@ -137,6 +161,13 @@ button:hover {
 
 .book-table tr:hover {
     background-color: #f1f1f1;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 .profile-section {

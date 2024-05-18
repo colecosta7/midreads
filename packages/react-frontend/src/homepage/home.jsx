@@ -67,13 +67,15 @@ const Home = () => {
     return (
         <div className="container">
             <Header onSearch={handleSearchInput} />
-            <Sidebar />
-            <div className="main-content">
-                <BookTable books={books} />
-                <div className="PaginationButton">
-                    <PaginationButton onClick={handlePreviousPage} label="Previous" />
-                    <span>Page {currentPage} of {totalPages}</span>
-                    <PaginationButton onClick={handleNextPage} label="Next" />
+            <div className="content-wrapper">
+                <Sidebar />
+                <div className="main-content">
+                    <BookTable books={books} />
+                    <div className="PaginationButton">
+                        <PaginationButton onClick={handlePreviousPage} label="Previous" />
+                        <span>Page {currentPage} of {totalPages}</span>
+                        <PaginationButton onClick={handleNextPage} label="Next" />
+                     </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './bookTable.css';
 
+
 const BookTable = ({ books }) => {
     return (
         <table className="book-table">
