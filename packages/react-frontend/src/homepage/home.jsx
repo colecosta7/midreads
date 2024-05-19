@@ -69,7 +69,7 @@ const Home = () => {
             <Header onSearch={handleSearchInput} />
             <div className="content-wrapper">
                 <Sidebar />
-                <div className="main-content">
+                <div className="home-main-content">
                     <BookTable books={books} />
                     <div className="PaginationButton">
                         <PaginationButton onClick={handlePreviousPage} label="Previous" />

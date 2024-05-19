@@ -23,7 +23,8 @@ body, html {
 #root {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     text-align: center;
     width: 100%;
 }
@@ -59,12 +60,13 @@ body, html {
     margin-top: 50px;
 }
 
-.main-content {
+.home-main-content {
     flex-grow: 1;
     width: 80%;
     /* Adjust width to 80% of the container */
-    padding: 20px;
+    border: 20px solid white;
     background: white;
+    margin-top: 50px;
     color: rgb(0, 0, 0);
     overflow-y: auto;
     /* Allow scrolling within the main content */
