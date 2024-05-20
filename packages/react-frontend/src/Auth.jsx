@@ -1,29 +1,28 @@
-import React, { useContext, useState, useEffect } from 'react'
-import {auth} from "./firebase"
+import React, { useContext, useState, useEffect } from 'react';
+import { auth } from './firebase';
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext();
 
-export function useAuth(){
-    return useContext(AuthContext)
+export function useAuth() {
+    return useContext(AuthContext);
 }
 
+const AuthProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(null);
 
-const AuthProvider = ({children}) => {
-    const[currentUser, setCurrentUser] = useState()
-    const provider = new GoogleAuthProvider(); //?
-
-    
     useEffect(() => {
-        const promise = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-        })
-        return promise
-    },[])
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            setCurrentUser(user);
+        });
 
-    return(
-        <AuthContext.Provider currentUser>
+        return unsubscribe;
+    }, []);
+
+    return (
+        <AuthContext.Provider value={{ currentUser }}>
+            {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
-export default AuthProvider
+export default AuthProvider;

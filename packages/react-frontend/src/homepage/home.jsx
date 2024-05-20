@@ -4,18 +4,23 @@ import Header from '../header';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './homePage.css';
-import AuthProvider from "../Auth.jsx"
+import { useAuth } from '../Auth';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         handleSearch("");
-        console.log(AuthProvider.currentUser)
-    }, []);
+        if (currentUser) {
+            console.log(currentUser);
+        } else {
+            console.log('No user is logged in.');
+        }
+    }, [currentUser]);
 
     useEffect(() => {
         getBooks(searchTerm, currentPage)
