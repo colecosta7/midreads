@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from "./homepage/home"
+import Library from "./library/library"
 import Profile from "./profile/profile"
 import Login from "./login/login"
 import CreateAccount from './login/createaccount';
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUsername={setUsername} />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/library" element={<Library />} />
           <Route path="/createaccount" element={<CreateAccount loggedIn={loggedIn} />} />
         </Routes>
       </BrowserRouter>

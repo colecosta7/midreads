@@ -1,0 +1,29 @@
+.book-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    table-layout: fixed;
+    /* Fix the table layout */
+}
+
+.book-table th,
+.book-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    /* Prevent overflow */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    text-overflow: ellipsis;
+    /* Ellipsis for overflowing text */
+}
+
+.book-table th {
+    background-color: #f9f9f9;
+}
+
+.book-table tr:hover {
+    background-color: #f1f1f1;
+}
