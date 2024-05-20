@@ -23,7 +23,7 @@ const BookTable = ({ books }) => {
             <tbody>
                 {books.map(book => (
                     <tr key={book._id}>
-                        <td className="title">{book.title}</td>
+                        <td>{book.title}</td>
                         <td>{book.author}</td>
                         <td>{book.numPages}</td>
                         <td>{book.ranking}</td>
