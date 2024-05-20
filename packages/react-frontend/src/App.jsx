@@ -5,6 +5,7 @@ import Library from "./library/library"
 import Profile from "./profile/profile"
 import Login from "./login/login"
 import CreateAccount from './login/createaccount';
+import AuthProvider from './Auth';
 import './App.css'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <div>
+      <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -23,6 +25,7 @@ function App() {
           <Route path="/createaccount" element={<CreateAccount loggedIn={loggedIn} />} />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </div>
   )
 }
