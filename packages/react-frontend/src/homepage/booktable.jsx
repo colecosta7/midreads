@@ -5,6 +5,14 @@ import './bookTable.css';
 const BookTable = ({ books }) => {
     return (
         <table className="book-table">
+            <colgroup>
+                <col className="title" />
+                <col className="author" />
+                <col className="pages" />
+                <col className="rating" />
+                <col className="predicted-rating" />
+                <col className="read-later" />
+            </colgroup>
             <thead>
                 <tr>
                     <th>Title</th>

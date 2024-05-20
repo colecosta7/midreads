@@ -13,11 +13,7 @@
     padding: 12px;
     border-bottom: 1px solid #ccc;
     overflow: hidden;
-    /* Prevent overflow */
-    white-space: nowrap;
-    /* Prevent text from wrapping */
     text-overflow: ellipsis;
-    /* Ellipsis for overflowing text */
 }
 
 .book-table th {
@@ -26,4 +22,46 @@
 
 .book-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* Specific rule for the title column */
+.book-table td.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    /* Allow text to wrap */
+    height: 4em;
+    /* Set a fixed height for two lines of text */
+    line-height: 1.5em;
+    /* Adjust line height */
+}
+
+.book-table colgroup col.title {
+    width: 28%;
+    /* Adjust this percentage as needed */
+}
+
+.book-table colgroup col.author {
+    width: 25%;
+}
+
+.book-table colgroup col.pages {
+    width: 11%;
+}
+
+.book-table colgroup col.rating {
+    width: 11%;
+}
+
+.book-table colgroup col.predicted-rating {
+    width: 15%;
+    /* Adjust this percentage as needed */
+}
+
+.book-table colgroup col.read-later {
+    width: 12%;
+    /* Adjust this percentage as needed */
 }

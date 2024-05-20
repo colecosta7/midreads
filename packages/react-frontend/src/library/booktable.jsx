@@ -1,10 +1,16 @@
 import React from 'react';
 import './bookTable.css';
 
-
 const BookTable = ({ books }) => {
     return (
         <table className="book-table">
+            <colgroup>
+                <col className="title" />
+                <col className="author" />
+                <col className="pages" />
+                <col className="rating" />
+                <col className="change-rating" />
+            </colgroup>
             <thead>
                 <tr>
                     <th>Title</th>
@@ -17,7 +23,7 @@ const BookTable = ({ books }) => {
             <tbody>
                 {books.map(book => (
                     <tr key={book._id}>
-                        <td>{book.title}</td>
+                        <td className="title">{book.title}</td>
                         <td>{book.author}</td>
                         <td>{book.numPages}</td>
                         <td>{book.ranking}</td>

@@ -26,7 +26,7 @@ const Home = () => {
             })
             .then(bookList => {
                 setBooks(bookList.data);
-                setTotalPages(Math.ceil(bookList.count/10));
+                setTotalPages(Math.ceil(bookList.count / 10));
             })
             .catch(error => {
                 console.error('Error getting books:', error);
@@ -71,11 +71,11 @@ const Home = () => {
                 <Sidebar />
                 <div className="home-main-content">
                     <BookTable books={books} />
-                    <div className="PaginationButton">
+                    <div className="pagination-container">
                         <PaginationButton onClick={handlePreviousPage} label="Previous" />
                         <span>Page {currentPage} of {totalPages}</span>
                         <PaginationButton onClick={handleNextPage} label="Next" />
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>

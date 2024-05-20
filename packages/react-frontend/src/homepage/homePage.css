@@ -5,7 +5,8 @@
 }
 
 
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -40,7 +41,7 @@ body, html {
 .container {
     display: flex;
     flex-direction: column;
-    height:100vh;
+    height: 100vh;
 }
 
 .content-wrapper {
@@ -91,7 +92,8 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensure the header is above other elements */
+    z-index: 1000;
+    /* Ensure the header is above other elements */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,12 +136,16 @@ button:hover {
     border-collapse: collapse;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px; /* Adjust as needed for spacing */
-    position: relative; /* Ensure positioning context for z-index */
-    z-index: 0; /* Ensure the table is below the header */
+    margin-bottom: 20px;
+    /* Adjust as needed for spacing */
+    position: relative;
+    /* Ensure positioning context for z-index */
+    z-index: 0;
+    /* Ensure the table is below the header */
 }
+
 .book-table tbody tr:nth-of-type(even) {
-    background-color:rgb(234, 228, 228);
+    background-color: rgb(234, 228, 228);
 }
 
 .book-table th {
@@ -165,11 +171,17 @@ button:hover {
     background-color: #f1f1f1;
 }
 
-.pagination {
+.pagination-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
+    gap: 10px;
+    /* Adds spacing between elements */
+}
+
+.pagination-container span {
+    margin: 0 10px;
 }
 
 .profile-section {
