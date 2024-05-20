@@ -4,6 +4,7 @@ import Header from '../header';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './homePage.css';
+import AuthProvider from "../Auth.jsx"
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -13,6 +14,7 @@ const Home = () => {
 
     useEffect(() => {
         handleSearch("");
+        console.log(AuthProvider.currentUser)
     }, []);
 
     useEffect(() => {
