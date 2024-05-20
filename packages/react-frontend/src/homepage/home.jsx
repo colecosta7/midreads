@@ -5,6 +5,7 @@ import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './homePage.css';
 import { useAuth } from '../Auth';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -12,6 +13,8 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         handleSearch("");
@@ -19,6 +22,7 @@ const Home = () => {
             console.log(currentUser);
         } else {
             console.log('No user is logged in.');
+            navigate("/login");
         }
     }, [currentUser]);
 
