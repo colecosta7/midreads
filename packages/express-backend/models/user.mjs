@@ -9,20 +9,27 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    fullName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    password: {
+    uid: {
       type: String,
       required: true,
       trim: true
     },
-    booksRead: [{
+    fullName: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: false,
+      trim: true
+    },
+    booksToRead: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Book',
-      default: []
+      default: function() {
+        return [];
+      }
     }],
     booksToRead: [{
       type: mongoose.Schema.Types.ObjectId,

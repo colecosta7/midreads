@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 import userServices from "./services/userServices.mjs";
 import bookServices from "./services/book-services.mjs";
+import ratingServices from "./services/rating-services.mjs";
+
 const app = express();
 const port = 8000;
 
@@ -66,6 +68,31 @@ app.get("/getBook", async (req, res) => {
       res.status(500).send("Internal server error");
     });
 });
+
+app.post("/rateBook", async (req, res) => {
+  const rating = req.body;
+  console.log(req);
+  let promise = ratingServices.addRating(rating);
+  promise.then((newRating) => {
+    res.status(201).send("Rating successfully added");
+  })
+});
+
+app.post("/readLater", async (req, res) => {
+  //console.log(req);
+  const { uid, book } = req.body
+  console.log(book);
+  console.log(uid);
+  let promise = userServices.updateReadLater(uid, book);
+  promise.then((result) => {
+    if(result === undefined){
+      res.status(406).send("Book already in read later");
+    } else {
+      res.status(200).send("Book added to read later");
+    }
+  })
+})
+
 
 app.listen(port, () => {
     console.log(

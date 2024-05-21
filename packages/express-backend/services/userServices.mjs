@@ -17,11 +17,26 @@ function addUser(user) {
   return promise;
 }
 
-function getUser(name, password) {
-  return userModel.find({ userName: name, password: password })
+function getUser(uid) {
+  return userModel.find({ uid: uid })
 }
+
+async function updateReadLater(uid, book) {
+  let user = await userModel.findOne({ uid: uid })
+  console.log(user);
+  if(user.booksToRead.includes(book._id)) {
+    return undefined;
+  } else {
+    return userModel.updateOne(
+      { uid: uid },
+      { $push: { booksToRead: book._id } }
+    );
+  }   
+}
+
 
 export default {
     addUser,
-    getUser
+    getUser,
+    updateReadLater
 };

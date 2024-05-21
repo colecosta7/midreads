@@ -17,7 +17,15 @@ function CreateAccount() {
     createUserWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigate("/login"); // Navigate only on successful account creation
+        addUserToBackend(user)
+          .then(response => {
+            if(response === 201) {
+              navigate("/login"); // Navigate only on successful account creation
+            }
+          })
+          .catch(error => {
+            console.error('Error creating user:', error);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -35,6 +43,24 @@ function CreateAccount() {
         }
       });
   };
+
+  function addUserToBackend(user) {
+    console.log("In function");
+    const { email, uid} = user
+
+    const userData = {
+      userName: email,
+      uid: uid
+    };
+    const promise = fetch("http://localhost:8000/createUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData)
+    });
+    return promise;
+}
 
   return (
     <div>

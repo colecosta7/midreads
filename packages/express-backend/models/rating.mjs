@@ -5,7 +5,7 @@ import bookModel from "./book.mjs";
 const RatingSchema = new mongoose.Schema(
   {
     by: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true
     },
