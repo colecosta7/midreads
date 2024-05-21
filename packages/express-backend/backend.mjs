@@ -74,8 +74,15 @@ app.post("/rateBook", async (req, res) => {
   console.log(req);
   let promise = ratingServices.addRating(rating);
   promise.then((newRating) => {
-    res.status(201).send("Rating successfully added");
-  })
+    let libPromise = userServices.updateLibrary(newRating.by, newRating.about);
+    libPromise.then((result) => {
+      if (result === undefined) {
+        res.status(406).send("Book already in library")
+      } else {
+        res.status(200).send("Book rating and added to library");
+      }
+    })
+  });
 });
 
 app.post("/readLater", async (req, res) => {

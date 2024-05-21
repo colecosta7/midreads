@@ -34,9 +34,23 @@ async function updateReadLater(uid, book) {
   }   
 }
 
+async function updateLibrary(uid, book) {
+  let user = await userModel.findOne({ uid: uid })
+  console.log(user);
+  if(user.library.includes(book._id)) {
+    return undefined;
+  } else {
+    return userModel.updateOne(
+      { uid: uid },
+      { $push: { library: book._id } }
+    );
+  }   
+}
+
 
 export default {
     addUser,
     getUser,
-    updateReadLater
+    updateReadLater,
+    updateLibrary
 };

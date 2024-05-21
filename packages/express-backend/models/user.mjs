@@ -31,10 +31,12 @@ const UserSchema = new mongoose.Schema(
         return [];
       }
     }],
-    booksToRead: [{
+    library: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Book',
-      default: []
+      default: function() {
+        return [];
+      }
     }],
     bio: {
         type: String,
