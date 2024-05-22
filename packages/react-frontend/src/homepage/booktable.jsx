@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './bookTable.css';
 import { useAuth } from '../Auth';
-import { Input, UncontrolledPopover, PopoverBody, PopoverHeader } from 'reactstrap'
+import { Input, Popover, PopoverBody, PopoverHeader } from 'reactstrap'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 
@@ -21,8 +21,11 @@ const BookTable = ({ books }) => {
     }
 
     const [rating, setRating] = useState(0);
+    const [ratingPopupOpen, setRatingPopupOpen] = useState(false);
+    const [showRateMessage, setShowRateMessage] = useState(false);
 
     function rateBook(uid, book, rating) {
+      console.log("title: " + book.title + "\n rating: " + rating);
         const rateData = {
             by: uid,
             about: book,
@@ -89,23 +92,24 @@ const BookTable = ({ books }) => {
                         <td>{book.numPages}</td>
                         <td>{book.ranking}</td>
                         <td><button onClick={() => handleReadLater(book)}>Read Later</button></td>
-                        <td><button id="ratingbutton" type="button" onClick={() => handleRating(book)}>Rate It</button></td>
+                        <td><button id="ratingbutton" type="button">Rate It</button></td>
                           <div className="root">
-                            <UncontrolledPopover
+                            <Popover
                               placement='right'
                               target='ratingbutton'
-                              trigger='legacy'
+                              trigger='click'
+                              isOpen={ratingPopupOpen}
+                              toggle= {() => { setRatingPopupOpen(!ratingPopupOpen) }}
                             >
-                              <PopoverHeader className="root">
-                                YOYOYO  
-                              </PopoverHeader>
                               <PopoverBody>
                                 <Rating style={{ maxWidth: 200 }}
                                         value={rating}
                                         onChange={setRating} />
-                                <button onClick={() => rateBook(currentUser.uid, book, rating)}>Rate</button>
+                                <button onClick={() => {rateBook(currentUser.uid, book, rating);
+                                                        setShowRateMessage(true);}}>Rate</button>
+                                <div>{ showRateMessage ? <text>Rating submitted</text> : null }</div>
                               </PopoverBody>
-                            </UncontrolledPopover>
+                            </Popover>
                           </div>
                     </tr>
                 ))}
