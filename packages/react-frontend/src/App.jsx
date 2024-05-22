@@ -5,6 +5,7 @@ import Library from "./library/library"
 import Profile from "./profile/profile"
 import Login from "./login/login"
 import ReadLater from "./read-later/readLater"
+import Friends from "./friends/friends"
 import CreateAccount from './login/createaccount';
 import AuthProvider from './Auth';
 import './App.css'
@@ -24,6 +25,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/library" element={<Library />} />
             <Route path="/read-later" element={<ReadLater />} />
+            <Route path="/friends" element={<Friends />} />
             <Route path="/createaccount" element={<CreateAccount loggedIn={loggedIn} />} />
           </Routes>
         </BrowserRouter>
