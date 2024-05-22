@@ -12,7 +12,7 @@ const Header = ({ onSearch }) => {
                 onChange={(e) => onSearch(e.target.value)}
                 style={{ color: "black" }}
             />
-            <button onClick={() => alert("Add book clicked")}>Add a book</button>
+            <button onClick={() => alert("Add friend clicked")}>Add friend</button>
         </div>
     );
 }
