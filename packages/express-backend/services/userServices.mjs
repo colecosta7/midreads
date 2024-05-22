@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import userModel from "../models/user.mjs";
+import bookModel from "../models/book.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -36,7 +37,6 @@ async function updateReadLater(uid, book) {
 
 async function updateLibrary(uid, book) {
   let user = await userModel.findOne({ uid: uid })
-  console.log(user);
   if(user.library.includes(book._id)) {
     return undefined;
   } else {
@@ -47,10 +47,24 @@ async function updateLibrary(uid, book) {
   }   
 }
 
+async function getUserLibrary(uid) {
+  let user = await userModel.findOne({ uid: uid });
+
+  let library = await Promise.all(user.library.map(bookId => bookModel.findById(bookId)));
+  
+  //let library = [];
+  //for(let i = 0; i < user.library.length; i++) {
+  //  library.push(bookModel.findById(user.library[i]));
+  //}
+  //console.log(library);
+  return library;
+}
+
 
 export default {
     addUser,
     getUser,
     updateReadLater,
-    updateLibrary
+    updateLibrary,
+    getUserLibrary
 };
