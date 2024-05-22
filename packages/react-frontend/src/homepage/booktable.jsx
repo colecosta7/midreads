@@ -74,7 +74,7 @@ const BookTable = ({ books }) => {
                     <th>Title</th>
                     <th>Author</th>
                     <th>Number of Pages</th>
-                    <th>Predicted Rating</th>
+                    <th>Rating</th>
                     <th>Read Later</th>
                     <th>Rate It</th>
                 </tr>
