@@ -92,6 +92,8 @@ app.post("/rateBook", async (req, res) => {
       } else {
         res.status(200).send("Book rating and added to library");
       }
+    }).catch((error) => {
+      consol.log(error);
     })
   });
 });
@@ -107,6 +109,24 @@ app.post("/readLater", async (req, res) => {
     } else {
       res.status(200).send("Book added to read later");
     }
+  })
+})
+
+app.get("/getLibCount", async (req, res) => {
+  const uid = req.query.uid;
+  let count = userServices.getCountLibrary(uid);
+  count.then((result) => {
+    console.log(result)
+    res.status(200).json(result)
+  })
+})
+
+app.get("/getLibPages", async (req, res) => {
+  const uid = req.query.uid;
+  let count = userServices.getCountTotalPages(uid);
+  count.then((result) => {
+    console.log(result)
+    res.status(200).json(result)
   })
 })
 

@@ -60,11 +60,27 @@ async function getUserLibrary(uid) {
   return library;
 }
 
+async function getCountLibrary(uid) {
+  let user = await userModel.findOne({ uid: uid});
+  let count = user.library.length;
+  return count;
+}
+
+async function getCountTotalPages(uid) {
+  let user = await userModel.findOne({ uid: uid});
+  let books = getUserLibrary(uid)
+  let pages = (await books).reduce((sum, book) => sum + book.numPages, 0);
+  return pages
+
+}
+
 
 export default {
     addUser,
     getUser,
     updateReadLater,
     updateLibrary,
-    getUserLibrary
+    getUserLibrary,
+    getCountLibrary,
+    getCountTotalPages
 };
