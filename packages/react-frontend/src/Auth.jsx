@@ -9,14 +9,21 @@ export function useAuth() {
 
 const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const [waiting, waitForUserData] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const userData = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
+            waitForUserData(false); 
         });
 
-        return unsubscribe;
+        return userData;
     }, []);
+
+    // can we just sleep or set a timer instead of doing this??
+    if (waiting) {
+        return <div>Waiting for user info</div>;
+    }
 
     return (
         <AuthContext.Provider value={{ currentUser }}>
