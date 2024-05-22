@@ -4,6 +4,7 @@ import Home from "./homepage/home"
 import Library from "./library/library"
 import Profile from "./profile/profile"
 import Login from "./login/login"
+import ReadLater from "./read-later/readLater"
 import CreateAccount from './login/createaccount';
 import AuthProvider from './Auth';
 import './App.css'
@@ -15,16 +16,17 @@ function App() {
   return (
     <div>
       <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUsername={setUsername} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/createaccount" element={<CreateAccount loggedIn={loggedIn} />} />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setUsername={setUsername} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/read-later" element={<ReadLater />} />
+            <Route path="/createaccount" element={<CreateAccount loggedIn={loggedIn} />} />
+          </Routes>
+        </BrowserRouter>
       </AuthProvider>
     </div>
   )
