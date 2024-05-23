@@ -145,6 +145,19 @@ app.get("/getLibPages", async (req, res) => {
   })
 })
 
+app.put("/addFriend", async (req, res) => {
+  const friend = req.body.friend;
+  const uid = req.body.user;
+  let promise = userServices.updateFriends(uid, friend);
+  promise.then(result => {
+    if(result === undefined) {
+      res.status(406).send("Error adding friend");
+    } else {
+      res.status(200).send("Friend successfully added");
+    }
+  })
+})
+
 
 app.listen(port, () => {
     console.log(
