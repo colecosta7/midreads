@@ -50,3 +50,41 @@
     width: 12%;
     /* Adjust this percentage as needed */
 }
+
+.popover {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .popover::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  .popover-header {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+  }
+  
+  .popover .rating {
+    margin-bottom: 20px;
+  }
+
+  .popover .rating + div {
+    text-align: center;
+  }
+
+  .popover .rating + div text {
+    color: #c0392b;
+  }

@@ -108,7 +108,7 @@ app.post("/rateBook", async (req, res) => {
         res.status(200).send("Book rating and added to library");
       }
     }).catch((error) => {
-      consol.log(error);
+      console.log(error);
     })
   });
 });
