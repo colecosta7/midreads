@@ -74,6 +74,22 @@ async function getCountTotalPages(uid) {
 
 }
 
+async function updateFriends(uid, friend) {
+  let user = await userModel.findOne({ uid: uid })
+  let friendObj = await userModel.findOne({userName: friend});
+  if(friendObj === null) {
+    return undefined;
+  }
+  if(user.friends.includes(friendObj._id)) {
+    return undefined;
+  } else {
+    return userModel.updateOne(
+      { uid: uid },
+      { $push: { friends: friendObj } }
+    );
+  }   
+}
+
 
 export default {
     addUser,
@@ -82,5 +98,6 @@ export default {
     updateLibrary,
     getUserLibrary,
     getCountLibrary,
-    getCountTotalPages
+    getCountTotalPages,
+    updateFriends
 };
