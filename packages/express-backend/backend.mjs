@@ -80,6 +80,21 @@ app.get("/getBook", async (req, res) => {
   }
 });
 
+app.put("/rateBook", async (req, res) => {
+  const by = req.body.by;
+  const about = req.body.about;
+  const rating = req.body.rating;
+  //console.log(by, about, rating);
+  let promise = ratingServices.updateRating(by, about, rating);
+  promise.then(result => {
+    if(result === undefined) {
+      res.status(500)
+    } else {
+      res.status(200).send("Rating updated");
+    }
+  });
+})
+
 app.post("/rateBook", async (req, res) => {
   const rating = req.body;
   console.log(req);
