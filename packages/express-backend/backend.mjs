@@ -4,13 +4,18 @@ import cors from "cors";
 import userServices from "./services/userServices.mjs";
 import bookServices from "./services/book-services.mjs";
 import ratingServices from "./services/rating-services.mjs";
+import uploadRoutes from "./uploadroutes.mjs";
 
 const app = express();
 const port = 8000;
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('/uploads'));
 
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
 
 app.post("/createUser", async (req, res) => {
     const user = req.body;
@@ -158,6 +163,20 @@ app.put("/addFriend", async (req, res) => {
   })
 })
 
+app.put("/addFriend", async (req, res) => {
+  const friend = req.body.friend;
+  const uid = req.body.user;
+  let promise = userServices.updateFriends(uid, friend);
+  promise.then(result => {
+    if(result === undefined) {
+      res.status(406).send("Error adding friend");
+    } else {
+      res.status(200).send("Friend successfully added");
+    }
+  })
+})
+
+app.use('/api/uploads', uploadRoutes);
 
 app.listen(port, () => {
     console.log(
