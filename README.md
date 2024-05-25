@@ -11,6 +11,78 @@
       -(/login for the login page)
       -(/Home for the landing page)
 
+## Contributing
+
+We welcome contributions from our fans. Please follow these guidelines when contributing to this project:
+
+### Coding Standards
+
+- **JavaScript/React**: We follow the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript).
+- **CSS**: Follow the [BEM (Block Element Modifier) methodology](http://getbem.com/introduction/).
+- **Commit Messages**: Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for clear and consistent commit messages.
+
+### Style Guide
+
+Please adhere to the following style guides:
+- [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+- [BEM CSS Naming Conventions](http://getbem.com/naming/)
+
+### Setting Up Your Development Environment
+
+To ensure code quality and consistency, we recommend setting up the following IDE plugins:
+
+#### Visual Studio Code
+
+1. **ESLint**: Provides real-time linting for JavaScript/React code.
+    - Install the ESLint plugin from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+    - Create or update your `.vscode/settings.json` file to include:
+        ```json
+        {
+            "eslint.validate": [
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact"
+            ],
+            "editor.codeActionsOnSave": {
+                "source.fixAll.eslint": true
+            }
+        }
+        ```
+
+2. **Prettier**: Ensures consistent code formatting.
+    - Install the Prettier plugin from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+    - Create or update your `.vscode/settings.json` file to include:
+        ```json
+        {
+            "editor.formatOnSave": true,
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+        ```
+
+3. **Stylelint**: Lints CSS/Sass/Less.
+    - Install the Stylelint plugin from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint).
+    - Ensure you have a `.stylelintrc` configuration file in your project root.
+
+### Running Lint and Tests
+
+Before submitting a pull request, please ensure that your code passes all linting and tests. You can run the following commands:
+
+```sh
+# Run ESLint
+npm run lint
+
+# Run Prettier
+npm run prettier:check
+
+# Run Stylelint
+npm run stylelint
+
+# Run Tests
+npm test
+
+
+
 ## [Sprint 1 Presentation Link](https://docs.google.com/presentation/d/1fVWsk3W9rDHimIflp0LBNuOf-9ZI9US3m1Q95WrmV24/edit?usp=sharing)
 
 For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.

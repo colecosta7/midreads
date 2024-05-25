@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import BookTable from './booktable';
-import Header from '../header';
+import BookTable from './friendsTable';
+import Header from './header';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
-import './homePage.css';
+import './friends.css';
 import { useAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,34 +15,39 @@ const Home = () => {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        handleSearch("");
-        if (currentUser) {
-            console.log(currentUser);
-        } else {
+        if (!currentUser) {
             console.log('No user is logged in.');
             navigate("/login");
+        } else {
+            //console.log(currentUser);
+            handleSearch("");
         }
-    }, [currentUser]);
+    }, [currentUser, navigate]);
 
     useEffect(() => {
-        getBooks(searchTerm, currentPage)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else if (response.status === 404) {
-                    return { data: [], count: 0 };
-                }
-            })
-            .then(bookList => {
-                setBooks(bookList.data);
-                setTotalPages(Math.ceil(bookList.count / 10));
-            })
-            .catch(error => {
-                console.error('Error getting books:', error);
-            });
-    }, [currentPage, searchTerm]);
+        if (currentUser) {
+            getBooks(searchTerm, currentPage, currentUser.uid)
+                .then(response => {
+                    console.log("LIBRARY");
+                    if (response.status === 200) {
+                        return response.json();
+                    } else if (response.status === 404) {
+                        console.log("BAD")
+                        return { data: [], count: 0 };
+                    }
+                })
+                .then(bookList => {
+                    console.log(bookList);
+                    setBooks(bookList.data);
+                    console.log(bookList.count);
+                    setTotalPages(Math.ceil(bookList.count / 10));
+                })
+                .catch(error => {
+                    console.error('Error getting books:', error);
+                });
+        }
+    }, [currentPage, searchTerm, currentUser]);
 
     const handleSearchInput = debounce((search) => {
         setSearchTerm(search);
@@ -54,10 +59,12 @@ const Home = () => {
         setCurrentPage(1);
     };
 
-    function getBooks(search, currentPage) {
+    function getBooks(search, currentPage, uid) {
+        //console.log(currentUser);
         const url = new URL("http://localhost:8000/getBook");
         url.searchParams.append("title", search);
         url.searchParams.append("page", currentPage);
+        url.searchParams.append("uid", uid);
 
         return fetch(url, {
             method: "GET",

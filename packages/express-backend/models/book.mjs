@@ -16,12 +16,16 @@ const BookSchema = new mongoose.Schema(
         type: Number,
         required: true
     },
-    ranking: {
+    avgRating: {
         type: Number,
         required: false
     },
+    numRatings: {
+      type: Number,
+      required: false
   },
-  { collection: "books_list" }
+  },
+  { collection: "book_list" }
 );
 
 const Book = mongoose.model("Book", BookSchema);

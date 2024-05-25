@@ -3,21 +3,19 @@ import './bookTable.css';
 import { useAuth } from '../Auth';
 
 
+
+
 const BookTable = ({ books }) => {
-    
+
     const { currentUser } = useAuth();
 
     const handleRating = (book) => {
-        console.log("rating...")
-        console.log(book.title)
+        //console.log("rating...")
+        //console.log(book.title)
         
         // Insert logic for rating a book
 
-        rateBook(currentUser.uid, book._id, 5.0)
-    }
-
-    const handleReadLater = (book) => {
-        readLater(currentUser.uid, book);
+        rateBook(currentUser.uid, book._id, 4.0)
     }
 
     function rateBook(uid, book, rating) {
@@ -26,35 +24,20 @@ const BookTable = ({ books }) => {
             about: book,
             rating: rating
           };
+        //console.log("SENDING", rateData);
     
         const promise = fetch("http://localhost:8000/rateBook", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(rateData)
         });
-    }
-
-    function readLater(uid, book) {
-        const bookData = {
-            uid: uid,
-            book: book
-        }
-        console.log(uid);
-        console.log(book);
-        const promise = fetch("http://localhost:8000/readLater", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(bookData)
-          });
         promise.then((result) => {
-            if(result.status === 406) {
-                alert("Error: Book already in read later");
+            if(result.status === 500) {
+                alert("Error updating rating");
             } else if (result.status === 200) {
-                alert("Book successfully added to read later");
+                alert("Rating successfully updated");
             }
         })
     }
@@ -66,17 +49,15 @@ const BookTable = ({ books }) => {
                 <col className="author" />
                 <col className="pages" />
                 <col className="rating" />
-                <col className="predicted-rating" />
-                <col className="read-later" />
+                <col className="change-rating" />
             </colgroup>
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Number of Pages</th>
-                    <th>Rating</th>
-                    <th>Read Later</th>
-                    <th>Rate It</th>
+                    <th>My Rating</th>
+                    <th>Change my Rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,8 +67,7 @@ const BookTable = ({ books }) => {
                         <td>{book.author}</td>
                         <td>{book.numPages}</td>
                         <td>{book.ranking}</td>
-                        <td><button onClick={() => handleReadLater(book)}>Read Later</button></td>
-                        <td><button onClick={() => handleRating(book)}>Rate It</button></td>
+                        <td><button onClick={() => handleRating(book)}>Change my Rating</button></td>
                     </tr>
                 ))}
             </tbody>

@@ -16,8 +16,16 @@ function addRating(rating) {
   return promise;
 }
 
-function getRating(by, bookID) {
-  return ratingModel.find({ by: by, about: bookID })
+function updateRating(by, about, rating) {
+  return ratingModel.updateOne(
+    { by: by, about: about }, 
+    { $set: { rating: rating } } 
+  );
+}
+
+
+function getRating(by, bookId) {
+  return ratingModel.find({ by: by, about: bookId })
 }
 
 function getAllRatingsAbout(bookID) {
@@ -47,5 +55,6 @@ export default {
     getRating,
     getAllRatingsAbout,
     getAllRatingsBy,
-    averageRatingFor
+    averageRatingFor,
+    updateRating
 };
