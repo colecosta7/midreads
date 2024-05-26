@@ -1,30 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './bookTable.css';
+import { UncontrolledPopover, PopoverBody } from 'reactstrap'
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 import { useAuth } from '../Auth';
-
-
-
 
 const BookTable = ({ books }) => {
 
     const { currentUser } = useAuth();
 
-    const handleRating = (book) => {
-        //console.log("rating...")
-        //console.log(book.title)
-        
-        // Insert logic for rating a book
-
-        rateBook(currentUser.uid, book._id, 4.0)
-    }
+    const [rating, setRating] = useState(0);
+    const [showRateMessage, setShowRateMessage] = useState(false);
+    const [selectedBookId, setSelectedBookId] = useState(null);
+    const [rateMessage, setRateMessage] = useState("Rating submitted.");
 
     function rateBook(uid, book, rating) {
+        console.log("title: " + book.title + "\n updated rating: " + rating);
         const rateData = {
             by: uid,
             about: book,
             rating: rating
           };
-        //console.log("SENDING", rateData);
     
         const promise = fetch("http://localhost:8000/rateBook", {
           method: "PUT",
@@ -33,13 +29,16 @@ const BookTable = ({ books }) => {
           },
           body: JSON.stringify(rateData)
         });
+
         promise.then((result) => {
-            if(result.status === 500) {
-                alert("Error updating rating");
-            } else if (result.status === 200) {
-                alert("Rating successfully updated");
+            if (result.status == 200) {
+              setRateMessage("Rating updated.");
+              setShowRateMessage(true);
+            } else {
+              setRateMessage("Unknown error occurred");
+              setShowRateMessage(true);
             }
-        })
+          })
     }
 
     return (
@@ -67,7 +66,42 @@ const BookTable = ({ books }) => {
                         <td>{book.author}</td>
                         <td>{book.numPages}</td>
                         <td>{book.ranking}</td>
-                        <td><button onClick={() => handleRating(book)}>Change my Rating</button></td>
+                        <td>
+                            <button id={`ratingbutton-${book._id}`} type="button"
+                                    onClick={() => { setSelectedBookId(book._id);
+                                                     setShowRateMessage(false); }}
+                            >
+                                Update Rating
+                            </button>
+                        </td>
+                            {selectedBookId === book._id && (
+                            <UncontrolledPopover
+                                className='popover'
+                                placement='top'
+                                target={`ratingbutton-${book._id}`}
+                                trigger='legacy'
+                            >
+                                <PopoverBody>
+                                <Rating style={{ maxWidth: 200,
+                                                padding: '10px' }}
+                                        value={rating}
+                                        onChange={setRating} />
+                                <div style={{ padding: '10px',
+                                                paddingTop: '0px',
+                                                display: 'inline-block' }}>
+                                    <button onClick={() => {rateBook(currentUser.uid, book, rating);}}>
+                                    Rate
+                                    </button>
+                                </div>
+                                <div style={{ color : 'maroon',
+                                                padding: '10px',
+                                                paddingTop: '0px',
+                                                display: 'inline-block' }}>
+                                    { showRateMessage ? <text>{rateMessage}</text> : null }
+                                </div>
+                                </PopoverBody>
+                            </UncontrolledPopover>
+                            )}
                     </tr>
                 ))}
             </tbody>
