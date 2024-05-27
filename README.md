@@ -1,5 +1,8 @@
 # midreads
 
+## 
+## [Sprint 2 Presentation Link](https://docs.google.com/presentation/d/16rJjnIkTqtG9fSSzZaTr2xibNjAYrC4bzfIay7R1Sds/edit?usp=sharing)
+
 **sprint one goals:**
 
 **Front-end**: set up login page and create new account form
@@ -81,9 +84,6 @@ npm run stylelint
 # Run Tests
 npm test
 
-
-
-## [Sprint 1 Presentation Link](https://docs.google.com/presentation/d/1fVWsk3W9rDHimIflp0LBNuOf-9ZI9US3m1Q95WrmV24/edit?usp=sharing)
 
 For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.
 
