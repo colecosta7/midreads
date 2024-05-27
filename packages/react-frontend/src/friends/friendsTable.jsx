@@ -14,7 +14,7 @@ const FriendsTable = ({ friends }) => {
                 <tr>
                     <th>Profile Pic</th>
                     <th>Name</th>
-                    <th>Status</th>
+                    <th>Pages Read</th>
                     <th>Visit Profile</th>
                 </tr>
             </thead>
@@ -23,7 +23,7 @@ const FriendsTable = ({ friends }) => {
                 <tr key={1234}>
                     <td><img src="src" alt={`Kylan's Profile Pic`} className="profile-pic" /></td>
                     <td>kylan</td>
-                    <td>online</td>
+                    <td>20000</td>
                     <td><button onClick={() => alert("Visit Profile")}>Visit Profile</button></td>
                 </tr>
                 {/* {friends.map(friend => (

@@ -5,19 +5,22 @@ import './profilePage.css';
 import { useAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
+import UploadPhoto from './uploadphoto';
 
 const Profile = () => {
-    const { currentUser} = useAuth();
+    const { currentUser } = useAuth();
     const navigate = useNavigate();
     const [count, setCount] = useState(0);
     const [pages, setPages] = useState(0);
     const [ranking, setRanking] = useState(undefined);
+    const [photo, setPhoto] = useState('');
 
     useEffect(() => {
         if (currentUser) {
             console.log(currentUser);
             handleCount();
             handlePages();
+            fetchUserPhoto();
         } else {
             console.log('No user is logged in.');
             navigate("/login");
@@ -27,6 +30,20 @@ const Profile = () => {
     useEffect(() => {
         handleRanking();
     }, [pages]);
+
+    const fetchUserPhoto = async () => {
+        try {
+            console.log(`Fetching photo for UID: ${currentUser.uid}`);
+            const response = await fetch(`http://localhost:8000/api/uploads/getUserPhoto?uid=${currentUser.uid}`);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            setPhoto(data.photo);
+        } catch (error) {
+            console.error('Error fetching user photo:', error);
+        }
+    };
 
     const handleRanking = () => {
         if (pages <= 500) {
@@ -95,12 +112,15 @@ const Profile = () => {
                 <div className="main-content">
                     <div className="profile-section">
                         <div className="user-section">
-                            <div className="user-photo">User Photo</div>
+                            <div className="user-photo">
+                                <img src={photo} alt="User Photo" />
+                            </div>
                             <div className="user-details">
                                 <div className="user-name">User: {currentUser.email}</div>
                                 <div className="books-read"># Books Read: {count}</div>
                                 <div className="pages-read">Total Pages Read: {pages}</div>
                                 <div className="user-rank">Rank: {ranking}</div>
+                                <UploadPhoto />
                                 <button className="edit-button">Edit</button>
                                 <button className="logout-button" onClick={onLogoutClick}>Logout</button>
                                 <button className="delete-account-button">Delete my account</button>
