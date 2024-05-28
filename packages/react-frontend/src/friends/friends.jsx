@@ -25,30 +25,6 @@ const Home = () => {
         }
     }, [currentUser, navigate]);
 
-    useEffect(() => {
-        if (currentUser) {
-            getBooks(searchTerm, currentPage, currentUser.uid)
-                .then(response => {
-                    console.log("LIBRARY");
-                    if (response.status === 200) {
-                        return response.json();
-                    } else if (response.status === 404) {
-                        console.log("BAD")
-                        return { data: [], count: 0 };
-                    }
-                })
-                .then(bookList => {
-                    console.log(bookList);
-                    setBooks(bookList.data);
-                    console.log(bookList.count);
-                    setTotalPages(Math.ceil(bookList.count / 10));
-                })
-                .catch(error => {
-                    console.error('Error getting books:', error);
-                });
-        }
-    }, [currentPage, searchTerm, currentUser]);
-
     const handleSearchInput = debounce((search) => {
         setSearchTerm(search);
         setCurrentPage(1);
@@ -58,21 +34,6 @@ const Home = () => {
         setSearchTerm(search);
         setCurrentPage(1);
     };
-
-    function getBooks(search, currentPage, uid) {
-        //console.log(currentUser);
-        const url = new URL("http://localhost:8000/getBook");
-        url.searchParams.append("title", search);
-        url.searchParams.append("page", currentPage);
-        url.searchParams.append("uid", uid);
-
-        return fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        });
-    }
 
     const handlePreviousPage = () => {
         setCurrentPage(currentPage => Math.max(currentPage - 1, 1));

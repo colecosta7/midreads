@@ -14,16 +14,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-    fullName: {
-      type: String,
-      required: false,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: false,
-      trim: true
-    },
     booksToRead: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Book',
