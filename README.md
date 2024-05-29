@@ -3,8 +3,8 @@
 ## 
 ## [Sprint 2 Presentation Link](https://docs.google.com/presentation/d/16rJjnIkTqtG9fSSzZaTr2xibNjAYrC4bzfIay7R1Sds/edit?usp=sharing)
 
-**Sprint 3 Assignments**
-Julian : Display user ratings in library, remove header elements from library and read later
+**Sprint 3 Assignments**  
+Julian : Display user ratings in library, remove header elements from library, read later, and profile  
 
 ## Contributing
 
