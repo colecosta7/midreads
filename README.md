@@ -1,15 +1,10 @@
 # midreads
 
-**sprint one goals:**
+## 
+## [Sprint 2 Presentation Link](https://docs.google.com/presentation/d/16rJjnIkTqtG9fSSzZaTr2xibNjAYrC4bzfIay7R1Sds/edit?usp=sharing)
 
-**Front-end**: set up login page and create new account form
-  -get setup for api request to post a new user
-
-**Back-end**: setting up database
-      -getting api endpoints setup for login and create new user
-      -(/createUser) for create user form
-      -(/login for the login page)
-      -(/Home for the landing page)
+**Sprint 3 Assignments**  
+Julian : Display user ratings in library, remove header elements from library, read later, and profile  
 
 ## Contributing
 
@@ -81,9 +76,6 @@ npm run stylelint
 # Run Tests
 npm test
 
-
-
-## [Sprint 1 Presentation Link](https://docs.google.com/presentation/d/1fVWsk3W9rDHimIflp0LBNuOf-9ZI9US3m1Q95WrmV24/edit?usp=sharing)
 
 For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.
 

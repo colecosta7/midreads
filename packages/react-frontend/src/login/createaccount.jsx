@@ -9,7 +9,6 @@ function CreateAccount() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
   const navigate = useNavigate();
 
   const onCreateClick = () => {
@@ -19,7 +18,7 @@ function CreateAccount() {
         const user = userCredential.user;
         addUserToBackend(user)
           .then(response => {
-            if(response === 201) {
+            if(response.status === 201) {
               navigate("/login"); // Navigate only on successful account creation
             }
           })
