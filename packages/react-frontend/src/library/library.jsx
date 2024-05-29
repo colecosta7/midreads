@@ -7,29 +7,24 @@ import './library.css';
 import { useAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Library = () => {
     const [books, setBooks] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+    const [count, setCount] = useState(0);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!currentUser) {
-            console.log('No user is logged in.');
             navigate("/login");
         } else {
             //console.log(currentUser);
-            handleSearch("");
         }
     }, [currentUser, navigate]);
 
     useEffect(() => {
         if (currentUser) {
-            getBooks(searchTerm, currentPage, currentUser.uid)
+            getBooks(currentUser.uid)
                 .then(response => {
-                    console.log("LIBRARY");
                     if (response.status === 200) {
                         return response.json();
                     } else if (response.status === 404) {
@@ -38,32 +33,18 @@ const Home = () => {
                     }
                 })
                 .then(bookList => {
-                    console.log(bookList);
                     setBooks(bookList.data);
-                    console.log(bookList.count);
-                    setTotalPages(Math.ceil(bookList.count / 10));
+                    setCount(bookList.count);
                 })
                 .catch(error => {
                     console.error('Error getting books:', error);
                 });
         }
-    }, [currentPage, searchTerm, currentUser]);
+    }, [currentUser]);
 
-    const handleSearchInput = debounce((search) => {
-        setSearchTerm(search);
-        setCurrentPage(1);
-    }, 300);
-
-    const handleSearch = (search) => {
-        setSearchTerm(search);
-        setCurrentPage(1);
-    };
-
-    function getBooks(search, currentPage, uid) {
+    function getBooks(uid) {
         //console.log(currentUser);
         const url = new URL("http://localhost:8000/getBook");
-        url.searchParams.append("title", search);
-        url.searchParams.append("page", currentPage);
         url.searchParams.append("uid", uid);
 
         return fetch(url, {
@@ -74,25 +55,15 @@ const Home = () => {
         });
     }
 
-    const handlePreviousPage = () => {
-        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
-    };
-
-    const handleNextPage = () => {
-        setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
-    };
-
     return (
         <div className="container">
-            <Header onSearch={handleSearchInput} />
+            <Header />
             <div className="content-wrapper">
                 <Sidebar />
                 <div className="home-main-content">
                     <BookTable books={books} />
                     <div className="pagination-container">
-                        <PaginationButton onClick={handlePreviousPage} label="Previous" />
-                        <span>Page {currentPage} of {totalPages}</span>
-                        <PaginationButton onClick={handleNextPage} label="Next" />
+                        <span>{count} books in library</span>
                     </div>
                 </div>
             </div>
@@ -100,14 +71,4 @@ const Home = () => {
     );
 };
 
-function debounce(func, delay) {
-    let timerId;
-    return function (...args) {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => {
-            func.apply(this, args);
-        }, delay);
-    };
-}
-
-export default Home;
+export default Library;

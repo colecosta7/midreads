@@ -24,7 +24,7 @@ const Home = () => {
             console.log('No user is logged in.');
             navigate("/login");
         }
-    }, [currentUser]);
+    }, []);
 
     useEffect(() => {
         getBooks(searchTerm, currentPage)
