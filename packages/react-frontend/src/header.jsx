@@ -21,8 +21,9 @@ const Header = ({ onSearch }) => {
     };
 
     const handleSubmit = () => {
+        bookData.pages = parseInt(bookData.pages, 10);
         // add the book to the db
-        console.log('Book data submitted:', bookData);
+        console.log("Book data submitted:", bookData);
         setBookData({
             title: '',
             author: '',
@@ -38,7 +39,7 @@ const Header = ({ onSearch }) => {
                 type="text"
                 placeholder="Search books..."
                 onChange={(e) => onSearch(e.target.value)}
-                style={{ color: 'black' }}
+                style={{ color: "black" }}
             />
             <button onClick={handleAddBookClick}>Add a book</button>
 
@@ -60,7 +61,7 @@ const Header = ({ onSearch }) => {
                             onChange={handleInputChange}
                         />
                         <input
-                            type="number"
+                            type="text"
                             name="pages"
                             placeholder="Number of pages"
                             value={bookData.pages}
