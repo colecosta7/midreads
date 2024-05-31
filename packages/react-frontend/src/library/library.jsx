@@ -33,8 +33,36 @@ const Library = () => {
                     }
                 })
                 .then(bookList => {
-                    setBooks(bookList.data);
-                    setCount(bookList.count);
+                    const promises = [];
+                    for (const book of bookList.data) {
+                        const url = new URL("http://localhost:8000/getRating");
+                        url.searchParams.append("by", currentUser.uid);
+                        url.searchParams.append("about", book._id);
+
+                        const ratingPromise =  fetch(url, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            }
+                        }).then((response) => {
+                            if (response.status === 201) {
+                                return response.json();
+                            }
+                        })
+                        
+                        promises.push(ratingPromise.then((rating) => {
+                            book.ranking = rating[0].rating;
+                            console.log("rating for book ", book, rating)
+                            return book
+                        }))   
+                    }
+
+                    Promise.all(promises).then((array) => {
+                        console.log("books list:",array);
+                        setBooks(array);
+                        setCount(array.length);
+                    })
+                    
                 })
                 .catch(error => {
                     console.error('Error getting books:', error);

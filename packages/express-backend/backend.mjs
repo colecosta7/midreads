@@ -17,6 +17,17 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+app.get('/getRating', (req, res) => {
+  const by = req.query.by;
+  const about = req.query.about;
+  let promise = ratingServices.getRating(by, about)
+  promise.then((rating) => {
+    res.status(201).json(rating)
+  }).catch((error) => {
+    console.log(error)
+  })
+})
+
 app.post("/createUser", async (req, res) => {
     const user = req.body;
     console.log(req);
