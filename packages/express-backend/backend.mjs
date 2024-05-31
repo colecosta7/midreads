@@ -43,8 +43,12 @@ app.post("/addBook", async (req, res) => {
   const book = req.body;
   console.log(req);
   let promise = bookServices.addBook(book);
-  promise.then((newBook) =>{
-    res.status(201).json(newBook);
+  promise.then((newBook) =>{ 
+    if (newBook === undefined) {
+      res.status(404).send(newBook)
+    } else {
+      res.status(201).json(newBook);
+    }
   })
 });
 

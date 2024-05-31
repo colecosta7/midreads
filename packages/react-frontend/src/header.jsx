@@ -5,7 +5,9 @@ const Header = ({ onSearch }) => {
     const [bookData, setBookData] = useState({
         title: '',
         author: '',
-        pages: 0,
+        numPages: undefined,
+        avgRating: undefined,
+        numRatings: 0
     });
 
     const handleAddBookClick = () => {
@@ -21,15 +23,53 @@ const Header = ({ onSearch }) => {
     };
 
     const handleSubmit = () => {
-        bookData.pages = parseInt(bookData.pages, 10);
-        // add the book to the db
-        console.log("Book data submitted:", bookData);
-        setBookData({
-            title: '',
-            author: '',
-            pages: 0,
+        if (bookData.title == '' || bookData.author == '' || bookData.numPages === undefined) {
+            alert("please fill out all fields to add a book")
+            setShowForm(false);
+            return
+        }
+        
+        bookData.numPages = parseInt(bookData.numPages, 10);
+        
+        if (isNaN(bookData.numPages)) {
+            alert("'number of pages' must be a valid integer");
+            setShowForm(false);
+            return
+        }
+
+        const promise = fetch("http://localhost:8000/addBook", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(bookData)
         });
-        setShowForm(false);
+
+        promise.then( (response) => {
+            if (response.status === 201) {
+                setBookData({
+                    title: '',
+                    author: '',
+                    numPages: undefined,
+                    avgRating: undefined,
+                    numRatings: 0
+                });
+                alert("added");
+                setShowForm(false);
+            } else {
+                alert("either you entered a bad word, or we already have that book!!!");
+                setBookData({
+                    title: '',
+                    author: '',
+                    numPages: undefined,
+                    avgRating: undefined,
+                    numRatings: 0
+                });
+                console.log("error occured adding book");
+            }
+        });
+
+        
     };
 
     return (
@@ -62,9 +102,9 @@ const Header = ({ onSearch }) => {
                         />
                         <input
                             type="text"
-                            name="pages"
+                            name="numPages"
                             placeholder="Number of pages"
-                            value={bookData.pages}
+                            value={bookData.numPages}
                             onChange={handleInputChange}
                         />
                         <button onClick={handleSubmit}>Submit</button>
