@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
-import Header from '../header';
+import Header from '../generalHeader';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './library.css';
@@ -57,7 +57,8 @@ const Library = () => {
 
     return (
         <div className="container">
-            <Header />
+            <Header position = "left"/>
+            
             <div className="content-wrapper">
                 <Sidebar />
                 <div className="home-main-content">
