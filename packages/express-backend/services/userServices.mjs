@@ -19,7 +19,7 @@ function addUser(user) {
 }
 
 function getUser(uid) {
-  return userModel.find({ uid: uid })
+  return userModel.findOne({ uid: uid })
 }
 
 async function updateReadLater(uid, book) {
@@ -67,9 +67,9 @@ async function getCountLibrary(uid) {
 }
 
 async function getCountTotalPages(uid) {
-  let user = await userModel.findOne({ uid: uid});
-  let books = getUserLibrary(uid)
-  let pages = (await books).reduce((sum, book) => sum + book.numPages, 0);
+  //let user = await userModel.findOne({ uid: uid});
+  let books = await getUserLibrary(uid)
+  let pages = books.reduce((sum, book) => sum + book.numPages, 0);
   return pages
 
 }
@@ -90,6 +90,10 @@ async function updateFriends(uid, friend) {
   }   
 }
 
+async function getFriends(friendIds) {
+  return userModel.find({ _id: { $in: friendIds } });
+}
+
 
 export default {
     addUser,
@@ -99,5 +103,6 @@ export default {
     getUserLibrary,
     getCountLibrary,
     getCountTotalPages,
-    updateFriends
+    updateFriends,
+    getFriends
 };
