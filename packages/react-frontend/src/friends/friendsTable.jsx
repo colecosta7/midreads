@@ -1,7 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './friendsTable.css';
+import { useAuth } from '../Auth';
+import { useNavigate } from 'react-router-dom';
 
-const FriendsTable = ({ friends }) => {
+const FriendsTable = ({ friendIds }) => {
+    const { currentUser } = useAuth();
+    const [friends, setFriends] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const friendData = await fetchFriendsDetails(currentUser.uid);
+            const friendsWithPages = await initializePages(friendData);
+            setFriends(friendsWithPages);
+        };
+
+        fetchData();
+    }, [currentUser.uid, friendIds]);
+
+    async function fetchFriendsDetails(user) {
+        console.log("Searching", user);
+        const url = new URL("http://localhost:8000/getFriendData");
+        url.searchParams.append("user", user);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.json();
+    }
+
+    async function initializePages(friendData) {
+        const friendsWithPages = await Promise.all(friendData.map(async (friend) => {
+            const pageCount = await handlePages(friend);
+            return { ...friend, pageCount };
+        }));
+        return friendsWithPages;
+    }
+
+    async function handlePages(friend) {
+        console.log("FRIEND: ", friend.uid);
+        const url = new URL("http://localhost:8000/getLibPages");
+        url.searchParams.append("uid", friend.uid);
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const text = await response.text();
+        return parseInt(text);
+    }
+
     return (
         <table className="friends-table">
             <colgroup>
@@ -19,21 +70,14 @@ const FriendsTable = ({ friends }) => {
                 </tr>
             </thead>
             <tbody>
-
-                <tr key={1234}>
-                    <td><img src="src" alt={`Kylan's Profile Pic`} className="profile-pic" /></td>
-                    <td>kylan</td>
-                    <td>20000</td>
-                    <td><button onClick={() => alert("Visit Profile")}>Visit Profile</button></td>
-                </tr>
-                {/* {friends.map(friend => (
+                {friends.map(friend => (
                     <tr key={friend._id}>
-                        <td>{friend.pic}</td>
-                        <td>{friend.name}</td>
-                        <td>{friend.status}</td>
-                        <td><button onClick={() => alert("Visit Profile")}>Visit Profile</button></td>
+                        <td>{friend.photo}</td>
+                        <td>{friend.userName}</td>
+                        <td>{friend.pageCount}</td>
+                        <td><button onClick={() => (navigate(`/profile/${friend._id}`, { state: { friend } }))}>Visit Profile</button></td>
                     </tr>
-                ))} */}
+                ))}
             </tbody>
         </table>
     );
