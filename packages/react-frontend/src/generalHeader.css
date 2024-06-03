@@ -1,0 +1,16 @@
+.generalHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px;
+    width:  100%;
+    background-color: #f8f9fa;
+  }
+  
+  .generalHeader .logo {
+    margin: 0;
+  }
+  
+  .generalHeader.left .logo {
+    justify-content: flex-start;
+  }

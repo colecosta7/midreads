@@ -35,6 +35,19 @@ async function updateReadLater(uid, book) {
   }   
 }
 
+async function removeReadLater(uid, book) {
+  let user = await userModel.findOne({ uid: uid })
+  console.log(user);
+  if(user.booksToRead.includes(book._id)) {
+    return userModel.updateOne(
+      { uid: uid },
+      { $pull: { booksToRead: book._id } }
+    );
+  } else {
+    return undefined
+  }   
+}
+
 async function updateLibrary(uid, book) {
   let user = await userModel.findOne({ uid: uid })
   if(user.library.includes(book._id)) {
@@ -51,13 +64,15 @@ async function getUserLibrary(uid) {
   let user = await userModel.findOne({ uid: uid });
 
   let library = await Promise.all(user.library.map(bookId => bookModel.findById(bookId)));
-  
-  //let library = [];
-  //for(let i = 0; i < user.library.length; i++) {
-  //  library.push(bookModel.findById(user.library[i]));
-  //}
-  //console.log(library);
   return library;
+}
+
+async function getUserReadLater(uid) {
+  let user = await userModel.findOne({ uid: uid });
+
+  let readLater = await Promise.all(user.booksToRead.map(bookId => bookModel.findById(bookId)));
+  
+  return readLater;
 }
 
 async function getCountLibrary(uid) {
@@ -104,5 +119,7 @@ export default {
     getCountLibrary,
     getCountTotalPages,
     updateFriends,
-    getFriends
+    getFriends,
+    getUserReadLater,
+    removeReadLater
 };

@@ -3,16 +3,8 @@
 ## 
 ## [Sprint 2 Presentation Link](https://docs.google.com/presentation/d/16rJjnIkTqtG9fSSzZaTr2xibNjAYrC4bzfIay7R1Sds/edit?usp=sharing)
 
-**sprint one goals:**
-
-**Front-end**: set up login page and create new account form
-  -get setup for api request to post a new user
-
-**Back-end**: setting up database
-      -getting api endpoints setup for login and create new user
-      -(/createUser) for create user form
-      -(/login for the login page)
-      -(/Home for the landing page)
+**Sprint 3 Assignments**  
+Julian : Display user ratings in library, remove header elements from library, read later, and profile  
 
 ## Contributing
 

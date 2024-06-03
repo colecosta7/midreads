@@ -17,6 +17,17 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
+app.get('/getRating', (req, res) => {
+  const by = req.query.by;
+  const about = req.query.about;
+  let promise = ratingServices.getRating(by, about)
+  promise.then((rating) => {
+    res.status(201).json(rating)
+  }).catch((error) => {
+    console.log(error)
+  })
+})
+
 app.post("/createUser", async (req, res) => {
     const user = req.body;
     console.log(req);
@@ -43,8 +54,12 @@ app.post("/addBook", async (req, res) => {
   const book = req.body;
   console.log(req);
   let promise = bookServices.addBook(book);
-  promise.then((newBook) =>{
-    res.status(201).json(newBook);
+  promise.then((newBook) =>{ 
+    if (newBook === undefined) {
+      res.status(404).send(newBook)
+    } else {
+      res.status(201).json(newBook);
+    }
   })
 });
 
@@ -53,19 +68,27 @@ app.get("/getBook", async (req, res) => {
   const page = parseInt(req.query.page) || 1; 
   const pageSize = parseInt(req.query.pageSize) || 10; 
   const uid = req.query.uid;
+  const later = req.query.later;
 
   const startIndex = (page - 1) * pageSize;
   const endIndex = page * pageSize;
 
   // If the user is provided, return the user's library
-  if(uid !== undefined) {
+  if(uid !== undefined && later === undefined) {
     let promise = userServices.getUserLibrary(uid);
     promise.then(library => {
       const count = library.length;
       let returnObj = {count: count, data: library};
       res.status(200).json(returnObj);
     });
-  } else {
+  } else if (uid !== undefined && later !== undefined) {
+    let promise = userServices.getUserReadLater(uid);
+    promise.then(library => {
+      const count = library.length;
+      let returnObj = {count: count, data: library};
+      res.status(200).json(returnObj);
+    });
+  } else  {
     let countPromise = bookServices.findCountOfBooksWithSubstring(title);
     countPromise.then(count => {
       let returnObj = {count: count, data: [], start: startIndex, stop: endIndex}
@@ -128,6 +151,18 @@ app.post("/readLater", async (req, res) => {
       res.status(406).send("Book already in read later");
     } else {
       res.status(200).send("Book added to read later");
+    }
+  })
+})
+
+app.put("/removeReadLater", async (req, res) => {
+  const { uid, book } = req.body
+  let promise = userServices.removeReadLater(uid, book);
+  promise.then((result) => {
+    if(result === undefined){
+      res.status(406).send("undefined behavior");
+    } else {
+      res.status(200).send("Book removed from read later");
     }
   })
 })

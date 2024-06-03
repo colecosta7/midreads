@@ -8,12 +8,47 @@ mongoose.set("debug", true);
 
 mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => console.log('Connected to MongoDB Atlas'))
-  .catch((error) => console.error('Error connecting to MongoDB Atlas:', error));
+.catch((error) => console.error('Error connecting to MongoDB Atlas:', error));
 
-function addBook(book) {
+async function addBook(book) {
   const bookToAdd = new bookModel(book);
-  const promise = bookToAdd.save();
-  return promise;
+  const title =  bookToAdd.title;
+  const author = bookToAdd.author;
+  const badWordsSubstrings = ["fuck", "shit", "bitch", "imshrekwesandimgettingreallyrich"];
+
+  function containsAnySubstring(mainString, searchStrings) {
+    const lowerMainString = mainString.toLowerCase();
+
+    for (const searchString of searchStrings) {
+        const lowerSearchString = searchString.toLowerCase();
+
+        if (lowerMainString.includes(lowerSearchString)) {
+            return true;
+        }
+    }
+    return false; 
+  }
+
+  if (containsAnySubstring(title, badWordsSubstrings) || containsAnySubstring(author, badWordsSubstrings)) {
+      return undefined;
+  } else {
+    const exactMatchTitleRegex = `^${title}$`;
+    const exactMatchAuthorRegex = `^${author}$`;
+
+    const result = await bookModel.find({
+      $and: [
+          { title: { $regex: exactMatchTitleRegex, $options: 'i' } },
+          { author: { $regex: exactMatchAuthorRegex, $options: 'i' } }
+      ]
+    });
+
+    if (result.length === 0) {
+        const savedBook = await bookToAdd.save();
+        return savedBook;
+    } else {
+        return undefined;
+    }
+  }
 }
   
 function findBooksWithSubstring(substring, startIndex, endIndex) { //will find all books containing substring, use for search
