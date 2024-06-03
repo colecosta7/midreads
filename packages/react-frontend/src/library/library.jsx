@@ -39,7 +39,7 @@ const Library = () => {
                         url.searchParams.append("by", currentUser.uid);
                         url.searchParams.append("about", book._id);
 
-                        const ratingPromise =  fetch(url, {
+                        const ratingPromise = fetch(url, {
                             method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
@@ -49,20 +49,20 @@ const Library = () => {
                                 return response.json();
                             }
                         })
-                        
+
                         promises.push(ratingPromise.then((rating) => {
                             book.ranking = rating[0].rating;
                             console.log("rating for book ", book, rating)
                             return book
-                        }))   
+                        }))
                     }
 
                     Promise.all(promises).then((array) => {
-                        console.log("books list:",array);
+                        console.log("books list:", array);
                         setBooks(array);
                         setCount(array.length);
                     })
-                    
+
                 })
                 .catch(error => {
                     console.error('Error getting books:', error);
@@ -85,8 +85,8 @@ const Library = () => {
 
     return (
         <div className="container">
-            <Header position = "left"/>
-            
+            <Header />
+
             <div className="content-wrapper">
                 <Sidebar />
                 <div className="home-main-content">
@@ -97,6 +97,7 @@ const Library = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
