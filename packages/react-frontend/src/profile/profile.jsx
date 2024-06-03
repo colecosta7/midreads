@@ -14,6 +14,7 @@ const Profile = () => {
     const [pages, setPages] = useState(0);
     const [ranking, setRanking] = useState(undefined);
     const [photo, setPhoto] = useState('');
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         if (currentUser) {
@@ -74,6 +75,10 @@ const Profile = () => {
         });
     };
 
+    const onEditClick = () => {
+        setEditing(true);
+    };
+
     const handleCount = async () => {
         const url = new URL("http://localhost:8000/getLibCount");
         url.searchParams.append("uid", currentUser.uid);
@@ -121,14 +126,29 @@ const Profile = () => {
                                 <div className="pages-read">Total Pages Read: {pages}</div>
                                 <div className="user-rank">Rank: {ranking}</div>
                                 <UploadPhoto />
-                                <button className="edit-button">Edit</button>
+                                <button className="edit-button" onClick={onEditClick}>Edit</button>
                                 <button className="logout-button" onClick={onLogoutClick}>Logout</button>
                                 <button className="delete-account-button">Delete my account</button>
                             </div>
                         </div>
                         <div className="bio-section">
-                            <div className="user-bio">User Created Bio</div>
-                            <div className="top-rated-books">Top Rated Books</div>
+                            <div className="user-bio" style={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                <textarea
+                                    id="bioInput"
+                                    placeholder="Enter your bio here"
+                                    style={{ width: '80%', height: '100px', padding: '10px', resize: 'none' }}
+                                //value={bio}
+                                //onChange={handleBioChange}
+                                />
+                                <button
+                                    id="submitButton"
+                                    style={{ marginTop: '10px', padding: '10px 20px' }}
+                                //onClick={handleBioSubmit}
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                            <div className="top-rated-books" style={{ height: '200px', backgroundColor: '#d9d9d9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Top Rated Books</div>
                         </div>
                     </div>
                 </div>
