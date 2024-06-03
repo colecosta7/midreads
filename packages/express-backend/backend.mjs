@@ -180,7 +180,6 @@ app.get("/getLibPages", async (req, res) => {
   const uid = req.query.uid;
   let count = userServices.getCountTotalPages(uid);
   count.then((result) => {
-    console.log(result)
     res.status(200).json(result)
   })
 })
@@ -198,15 +197,21 @@ app.put("/addFriend", async (req, res) => {
   })
 })
 
-app.put("/addFriend", async (req, res) => {
-  const friend = req.body.friend;
-  const uid = req.body.user;
-  let promise = userServices.updateFriends(uid, friend);
-  promise.then(result => {
-    if(result === undefined) {
-      res.status(406).send("Error adding friend");
-    } else {
-      res.status(200).send("Friend successfully added");
+app.get("/getFriendData", async (req, res) => {
+  const uid = req.query.user;
+  console.log(uid);
+  let userPromise = userServices.getUser(uid);
+  userPromise.then(user => {
+    if(user != undefined) {
+      console.log("USER: ", user);
+      console.log("FINDING FRINEDs");
+      let promise = userServices.getFriends(user.friends);
+      promise.then(result => {
+        if(result != undefined) {
+          console.log("FOUND:", result)
+          res.status(200).json(result)
+        }
+      })
     }
   })
 })
