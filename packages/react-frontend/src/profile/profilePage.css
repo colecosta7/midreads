@@ -50,6 +50,16 @@ html {
     margin-bottom: 20px;
 }
 
+.avatar {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border-width: 5px;
+    border-color: black;
+    border-style: outset;
+}
+
 .user-info {
     display: flex;
     flex-direction: column;
@@ -58,6 +68,12 @@ html {
 .user-info>div,
 .user-info>button {
     margin-bottom: 10px;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    color: #666666;
 }
 
 .edit-button,
