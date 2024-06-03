@@ -58,6 +58,7 @@ html {
     border-width: 5px;
     border-color: black;
     border-style: outset;
+    margin: 25px;
 }
 
 .user-info {

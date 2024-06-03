@@ -16,6 +16,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
     const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
     const [editing, setEditing] = useState(false);
+    const [bio, setBio] = useState("");
 
     useEffect(() => {
         if (currentUser) {
@@ -62,7 +63,10 @@ const Profile = () => {
     };
 
     const onEditClick = () => {
-        setEditing(true);
+        if (editing) {
+            //save bio in backend
+        }
+        setEditing(!editing);
     };
 
     const handleCount = async () => {
@@ -95,13 +99,17 @@ const Profile = () => {
         setPages(data);
     };
 
-    function handleChange(e) {
+    function handleImageChange(e) {
         if (e.target.files[0]) {
             setPhoto(e.target.files[0])
         }
     }
 
-    function handleClick() {
+    const handleBioChange = (e) => {
+        setBio(e.target.value);
+    };
+
+    function handleImageClick() {
         upload(photo, currentUser, setLoading);
     }
 
@@ -119,38 +127,43 @@ const Profile = () => {
                 <div className="main-content">
                     <div className="profile-section">
                         <div className="user-section">
-                            <input type="file" onChange={handleChange} />
-                            <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+                            {editing
+                                ?
+                                <div>
+                                    <input type="file" onChange={handleImageChange} />
+                                    <button disabled={loading || !photo} onClick={handleImageClick}>Upload</button>
+                                </div>
+                                :
+                                <div></div>
+                            }
                             <img src={photoURL} alt="Avatar" className="avatar" />
                             <div className="user-details">
                                 <div className="user-name">User: {currentUser.email}</div>
                                 <div className="books-read"># Books Read: {count}</div>
                                 <div className="pages-read">Total Pages Read: {pages}</div>
                                 <div className="user-rank">Rank: {ranking}</div>
-                                <UploadPhoto />
-                                <button className="edit-button" onClick={onEditClick}>Edit</button>
+                                <button className="edit-button" onClick={onEditClick}>
+                                    {editing ? "Finish Editing" : "Edit"}
+                                </button>
                                 <button className="logout-button" onClick={onLogoutClick}>Logout</button>
                                 <button className="delete-account-button">Delete my account</button>
                             </div>
                         </div>
                         <div className="bio-section">
-                            <div className="user-bio" style={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                <textarea
-                                    id="bioInput"
-                                    placeholder="Enter your bio here"
-                                    style={{ width: '80%', height: '100px', padding: '10px', resize: 'none' }}
-                                //value={bio}
-                                //onChange={handleBioChange}
-                                />
-                                <button
-                                    id="submitButton"
-                                    style={{ marginTop: '10px', padding: '10px 20px' }}
-                                //onClick={handleBioSubmit}
-                                >
-                                    Submit
-                                </button>
-                            </div>
-                            <div className="top-rated-books" style={{ height: '200px', backgroundColor: '#d9d9d9', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Top Rated Books</div>
+                            {
+                                editing ?
+                                    <div className="user-bio" style={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                        <textarea
+                                            id="bioInput"
+                                            placeholder="Enter your bio here"
+                                            style={{ width: '100%', height: '100%', padding: '10px', resize: 'none', fontFamily: 'Times New Roman', fontSize: '16px' }}
+                                            value={bio}
+                                            onChange={handleBioChange}
+                                        />
+                                    </div>
+                                    :
+                                    <div className="top-rated-books" style={{ height: '200px', backgroundColor: '#d9d9d9', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '12px' }}>Bio: Top Rated Books</div>
+                            }
                         </div>
                     </div>
                 </div>
