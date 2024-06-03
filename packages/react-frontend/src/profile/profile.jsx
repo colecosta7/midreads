@@ -105,20 +105,16 @@ const Profile = () => {
         }
     }
 
-<<<<<<< HEAD
     const handleBioChange = (e) => {
         setBio(e.target.value);
     };
 
-    function handleImageClick() {
+    const handleImageClick = async () => {
         upload(photo, currentUser, setLoading);
-=======
-    const handleClick = async () => {
         const newPhotoURL = await upload(photo, currentUser, setLoading);
         if (newPhotoURL) {
             setPhotoURL(newPhotoURL);
         }
->>>>>>> 2564dc2 (displays pfp without needing to refresh page)
     }
 
     useEffect(() => {
