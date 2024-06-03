@@ -23,8 +23,9 @@ export async function upload(file, currentUser, setLoading){
 
   setLoading(true);
 
-  const snapshot = await uploadBytes(fileRef, file);
-  const photoURL = await getDownloadURL(fileRef);
+  try {
+    await uploadBytes(fileRef, file);
+    const photoURL = await getDownloadURL(fileRef);
 
   const promise = fetch("http://localhost:8000/updatePhoto", {
     method: "PUT",
@@ -33,9 +34,15 @@ export async function upload(file, currentUser, setLoading){
     },
     body: JSON.stringify({uid: currentUser.uid, url: photoURL})
   }).then(console.log("photo updated in database"));
+  
+    await updateProfile(currentUser, { photoURL });
 
-  updateProfile(currentUser, {photoURL});
+    setLoading(false);
+    alert("Uploaded file!");
+    return photoURL;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    setLoading(false);
+  }
 
-  setLoading(false);
-  alert("Uploaded file!");
 }

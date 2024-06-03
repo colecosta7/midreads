@@ -141,8 +141,12 @@ const Profile = () => {
         setBio(e.target.value);
     };
 
-    function handleImageClick() {
+    const handleImageClick = async () => {
         upload(photo, currentUser, setLoading);
+        const newPhotoURL = await upload(photo, currentUser, setLoading);
+        if (newPhotoURL) {
+            setPhotoURL(newPhotoURL);
+        }
     }
 
     useEffect(() => {
