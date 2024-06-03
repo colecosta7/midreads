@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './bookTable.css';
 import { useAuth } from '../Auth';
-import { UncontrolledPopover, PopoverBody } from 'reactstrap'
+import { UncontrolledPopover, PopoverBody, PopoverHeader } from 'reactstrap'
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 
@@ -114,13 +114,18 @@ const BookTable = ({ books }) => {
                             target={`ratingbutton-${book._id}`}
                             trigger='legacy'
                           >
+                            <PopoverHeader>
+                              <div style={{ color : 'black', padding : '5px' }}>
+                                Rate Book & Add to Library
+                              </div>
+                            </PopoverHeader>
                             <PopoverBody>
                               <Rating style={{ maxWidth: 200,
                                                padding: '10px' }}
                                       value={rating}
                                       onChange={setRating} />
                               <div style={{ padding: '10px',
-                                            paddingTop: '0px',
+                                            paddingTop: '2px',
                                             display: 'inline-block' }}>
                                 <button onClick={() => {rateBook(currentUser.uid, book, rating);}}>
                                   Rate
