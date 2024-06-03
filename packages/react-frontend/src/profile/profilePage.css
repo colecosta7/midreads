@@ -59,6 +59,7 @@ html {
     border-color: black;
     border-style: outset;
     margin: 25px;
+    object-fit: cover;
 }
 
 .user-info {
