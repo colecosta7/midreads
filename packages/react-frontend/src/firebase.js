@@ -23,13 +23,19 @@ export async function upload(file, currentUser, setLoading){
 
   setLoading(true);
 
-  const snapshot = await uploadBytes(fileRef, file);
-  const photoURL = await getDownloadURL(fileRef);
+  try {
+    await uploadBytes(fileRef, file);
+    const photoURL = await getDownloadURL(fileRef);
 
-  //add to backend
+  
+    await updateProfile(currentUser, { photoURL });
 
-  updateProfile(currentUser, {photoURL});
+    setLoading(false);
+    alert("Uploaded file!");
+    return photoURL;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    setLoading(false);
+  }
 
-  setLoading(false);
-  alert("Uploaded file!");
 }
