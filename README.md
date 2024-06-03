@@ -1,10 +1,12 @@
 # midreads
 
-## 
-## [Sprint 2 Presentation Link](https://docs.google.com/presentation/d/16rJjnIkTqtG9fSSzZaTr2xibNjAYrC4bzfIay7R1Sds/edit?usp=sharing)
+### [Final Presentation Link](https://docs.google.com/presentation/d/1P2gFYvK11ksNucLE_lk21sIDmIObrJyEow4Cefbmijs/edit?usp=sharing)
+  
+### Project Blurb  
+Midreads is a platform for book lovers. Our customers can use our platform to find new books to read, searching from our library of over 10,000 popular titles. Page counts and ratings are included to help our users find what they will love. Users can also add to their 'read later' list, rate books they have read, and add books to their personal library. When you create an account with Midreads, you can customise your profile with a bio and a profile picture, and connect with your friends to view their profiles. We have a simple, clean design, and designed our website to be easy to use and easy to learn. 
 
-**Sprint 3 Assignments**  
-Julian : Display user ratings in library, remove header elements from library, read later, and profile  
+### [UI Prototype Link](https://www.figma.com/design/06Grid7QpstABdzwhMFVan/Midreads-Homepage?node-id=0-1&t=2CPF7OGMEoiFyQFE-1)
+#### Last updated 12 May 2024
 
 ## Contributing
 
@@ -75,7 +77,7 @@ npm run stylelint
 
 # Run Tests
 npm test
-
+```
 
 For the avid reader who wants a virtual library of their reading history, midreads is a website that allows readers to log their books they've read and want to read, rate the books they've read, and see what their friends are reading. Unlike GoodReads, our product is simple to use and doesn't sell user data.
 
