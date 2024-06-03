@@ -26,7 +26,13 @@ export async function upload(file, currentUser, setLoading){
   const snapshot = await uploadBytes(fileRef, file);
   const photoURL = await getDownloadURL(fileRef);
 
-  //add to backend
+  const promise = fetch("http://localhost:8000/updatePhoto", {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({uid: currentUser.uid, url: photoURL})
+  }).then(console.log("photo updated in database"));
 
   updateProfile(currentUser, {photoURL});
 

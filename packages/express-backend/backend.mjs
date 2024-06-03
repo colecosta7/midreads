@@ -123,13 +123,32 @@ app.put("/rateBook", async (req, res) => {
 })
 
 app.put("/updateBio", async (req, res) => {
-  const user = req.body.user;
-  const url = req.body.url;
+  const uid = req.body.uid;
+  const bio = req.body.bio;
 
-  let promise = userServices.updatePhoto(user.uid, url);
+  let promise = userServices.updateBio(uid, bio);
   promise.then(result => {
     res.status(200).send("bio updated");
   })
+})
+
+app.put("/updatePhoto", async (req, res) => {
+  const uid = req.body.uid;
+  const url = req.body.url;
+
+  let promise = userServices.updatePhoto(uid, url);
+  promise.then(result => {
+    res.status(200).send("photo updated");
+  })
+})
+
+app.get("/getBio", async (req, res) => {
+  const uid = req.query.uid;
+
+  let promise = userServices.getUserBio(uid)
+  promise.then((bio) => {
+    res.status(200).json(bio);
+  }).catch((error) => console.log(error))
 })
 
 app.post("/rateBook", async (req, res) => {
