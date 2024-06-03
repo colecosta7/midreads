@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const [books, setBooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
@@ -27,34 +25,20 @@ const Home = () => {
 
     const handleSearchInput = debounce((search) => {
         setSearchTerm(search);
-        setCurrentPage(1);
     }, 300);
 
     const handleSearch = (search) => {
         setSearchTerm(search);
-        setCurrentPage(1);
     };
 
-    const handlePreviousPage = () => {
-        setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
-    };
-
-    const handleNextPage = () => {
-        setCurrentPage(currentPage => Math.min(currentPage + 1, totalPages));
-    };
 
     return (
         <div className="container">
-            <Header onSearch={handleSearchInput} />
+            <Header/>
             <div className="content-wrapper">
                 <Sidebar />
                 <div className="home-main-content">
                     <BookTable books={books} />
-                    <div className="pagination-container">
-                        <PaginationButton onClick={handlePreviousPage} label="Previous" />
-                        <span>Page {currentPage} of {totalPages}</span>
-                        <PaginationButton onClick={handleNextPage} label="Next" />
-                    </div>
                 </div>
             </div>
         </div>
