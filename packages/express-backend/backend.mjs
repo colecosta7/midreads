@@ -4,7 +4,6 @@ import cors from "cors";
 import userServices from "./services/userServices.mjs";
 import bookServices from "./services/book-services.mjs";
 import ratingServices from "./services/rating-services.mjs";
-import uploadRoutes from "./uploadroutes.mjs";
 
 const app = express();
 const port = 8000;
@@ -215,8 +214,6 @@ app.get("/getFriendData", async (req, res) => {
     }
   })
 })
-
-app.use('/api/uploads', uploadRoutes);
 
 app.listen(port, () => {
     console.log(
