@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema(
     }],
     photo: {
        type: String,
-       default: '../Default_pfp.jpg'
+       default: './Default_pfp.jpg'
     }
   },
   { collection: "users_list" }

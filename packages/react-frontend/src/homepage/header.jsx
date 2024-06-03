@@ -6,7 +6,7 @@ const Header = ({ onSearch }) => {
         title: '',
         author: '',
         numPages: undefined,
-        avgRating: undefined,
+        avgRating: 0,
         numRatings: 0
     });
 
@@ -51,18 +51,19 @@ const Header = ({ onSearch }) => {
                     title: '',
                     author: '',
                     numPages: undefined,
-                    avgRating: undefined,
+                    avgRating: 0,
                     numRatings: 0
                 });
                 alert("added");
                 setShowForm(false);
             } else {
                 alert("either you entered a bad word, or we already have that book!!!");
+                setShowForm(false);
                 setBookData({
                     title: '',
                     author: '',
                     numPages: undefined,
-                    avgRating: undefined,
+                    avgRating: 0,
                     numRatings: 0
                 });
                 console.log("error occured adding book");

@@ -4,8 +4,7 @@ import Header from '../generalHeader';
 import './profilePage.css';
 import { useAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
-import UploadPhoto from './uploadphoto';
+import { auth, upload } from '../firebase';
 
 const Profile = () => {
     const { currentUser } = useAuth();
@@ -13,7 +12,9 @@ const Profile = () => {
     const [count, setCount] = useState(0);
     const [pages, setPages] = useState(0);
     const [ranking, setRanking] = useState(undefined);
-    const [photo, setPhoto] = useState('');
+    const [photo, setPhoto] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
     const [editing, setEditing] = useState(false);
 
     useEffect(() => {
@@ -21,7 +22,6 @@ const Profile = () => {
             console.log(currentUser);
             handleCount();
             handlePages();
-            fetchUserPhoto();
         } else {
             console.log('No user is logged in.');
             navigate("/login");
@@ -31,20 +31,6 @@ const Profile = () => {
     useEffect(() => {
         handleRanking();
     }, [pages]);
-
-    const fetchUserPhoto = async () => {
-        try {
-            console.log(`Fetching photo for UID: ${currentUser.uid}`);
-            const response = await fetch(`http://localhost:8000/api/uploads/getUserPhoto?uid=${currentUser.uid}`);
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            const data = await response.json();
-            setPhoto(data.photo);
-        } catch (error) {
-            console.error('Error fetching user photo:', error);
-        }
-    };
 
     const handleRanking = () => {
         if (pages <= 500) {
@@ -109,6 +95,22 @@ const Profile = () => {
         setPages(data);
     };
 
+    function handleChange(e) {
+        if (e.target.files[0]) {
+            setPhoto(e.target.files[0])
+        }
+    }
+
+    function handleClick() {
+        upload(photo, currentUser, setLoading);
+    }
+
+    useEffect(() => {
+        if (currentUser?.photoURL) {
+            setPhotoURL(currentUser.photoURL);
+        }
+    }, [currentUser])
+
     return (
         <div className="container">
             <Header />
@@ -117,9 +119,9 @@ const Profile = () => {
                 <div className="main-content">
                     <div className="profile-section">
                         <div className="user-section">
-                            <div className="user-photo">
-                                <img src={photo} alt="User Photo" />
-                            </div>
+                            <input type="file" onChange={handleChange} />
+                            <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+                            <img src={photoURL} alt="Avatar" className="avatar" />
                             <div className="user-details">
                                 <div className="user-name">User: {currentUser.email}</div>
                                 <div className="books-read"># Books Read: {count}</div>
