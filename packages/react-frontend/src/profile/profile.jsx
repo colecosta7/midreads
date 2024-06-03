@@ -23,6 +23,7 @@ const Profile = () => {
             console.log(currentUser);
             handleCount();
             handlePages();
+            handleBioInit();
         } else {
             console.log('No user is logged in.');
             navigate("/login");
@@ -32,6 +33,21 @@ const Profile = () => {
     useEffect(() => {
         handleRanking();
     }, [pages]);
+
+    const handleBioInit = () => {
+        const url = new URL("http://localhost:8000/getBio");
+        url.searchParams.append("uid", currentUser.uid);
+
+        const promise = fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then((response) => response.json())
+        .then((data) => {
+            setBio(data);
+        })
+    }
 
     const handleRanking = () => {
         if (pages <= 500) {
@@ -64,9 +80,17 @@ const Profile = () => {
 
     const onEditClick = () => {
         if (editing) {
-            //save bio in backend
-        }
+            const promise = fetch("http://localhost:8000/updateBio", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({uid: currentUser.uid, bio: bio})
+            }).then(setEditing(!editing));
+            
+        } else {
         setEditing(!editing);
+        }
     };
 
     const handleCount = async () => {
@@ -102,6 +126,14 @@ const Profile = () => {
     function handleImageChange(e) {
         if (e.target.files[0]) {
             setPhoto(e.target.files[0])
+            console.log("USERPHOTO", currentUser.photoURL);
+            const promise = fetch("http://localhost:8000/updatePhoto", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({uid: currentUser.uid, url: currentUser.photoURL})
+            }).then(console.log("photo updated in database"));
         }
     }
 
@@ -166,7 +198,7 @@ const Profile = () => {
                                         />
                                     </div>
                                     :
-                                    <div className="top-rated-books" style={{ height: '200px', backgroundColor: '#d9d9d9', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '12px' }}>Bio: Top Rated Books</div>
+                                    <div className="top-rated-books" style={{ height: '200px', backgroundColor: '#d9d9d9', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', padding: '12px' }}>{bio}</div>
                             }
                         </div>
                     </div>

@@ -61,11 +61,26 @@ async function updateLibrary(uid, book) {
 }
 
 async function updatePhoto(uid, url) {
+  console.log("USERPHOTOURL:", url)
   return userModel.updateOne(
     { uid: uid },
     { $set: {photo: url} } 
   )
-}   
+}  
+
+async function updateBio(uid, bio) {
+  return userModel.updateOne(
+    { uid: uid },
+    { $set: {bio: bio} } 
+  )
+} 
+
+async function getUserBio(uid) {
+  let user = await userModel.findOne({ uid: uid });
+
+  let bio = user.bio
+  return bio
+}
 
 
 async function getUserLibrary(uid) {
@@ -130,5 +145,7 @@ export default {
     getFriends,
     getUserReadLater,
     removeReadLater,
-    updatePhoto
+    updatePhoto,
+    updateBio,
+    getUserBio
 };
