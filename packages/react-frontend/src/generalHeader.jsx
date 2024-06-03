@@ -3,7 +3,7 @@ const generalHeader = () => {
 
     return (
         <div className="generalHeader">
-            <div className="generalLogo">MidReads</div>
+            <div className="generalLogo">midreads.</div>
             <div className="generalSpacer"></div>
         </div>
     );

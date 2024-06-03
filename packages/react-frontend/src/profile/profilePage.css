@@ -58,6 +58,8 @@ html {
     border-width: 5px;
     border-color: black;
     border-style: outset;
+    margin: 25px;
+    object-fit: cover;
 }
 
 .user-info {
@@ -102,4 +104,6 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    /* Change to column to stack elements vertically */
 }
