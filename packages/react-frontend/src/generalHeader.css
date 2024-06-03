@@ -1,16 +1,25 @@
 .generalHeader {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 60px;
-    width:  100%;
-    background-color: #f8f9fa;
-  }
-  
-  .generalHeader .logo {
-    margin: 0;
-  }
-  
-  .generalHeader.left .logo {
-    justify-content: flex-start;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.generalLogo {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  margin-right: 100px;
+}
+
+.generalSpacer {
+  width: 615px;
+}

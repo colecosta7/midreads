@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
-import Header from '../header';
+import Header from './header';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './homePage.css';
