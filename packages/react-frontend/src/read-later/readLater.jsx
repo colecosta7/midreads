@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BookTable from './booktable';
-import Header from '../header';
+import Header from '../generalHeader';
 import Sidebar from '../sidebar';
 import PaginationButton from './PaginationButton';
 import './readLater.css';
@@ -66,30 +66,30 @@ const Home = () => {
         const promise = fetch("http://localhost:8000/removeReadLater", {
             method: "PUT",
             headers: {
-              "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(bookData)
-          });
+        });
         promise.then((result) => {
-            if(result.status === 406) {
+            if (result.status === 406) {
                 console.log(error)
             } else if (result.status === 200) {
                 getBooks(currentUser.uid)
-                .then(response => {
-                    if (response.status === 200) {
-                        return response.json();
-                    } else if (response.status === 404) {
-                        console.log("BAD")
-                        return { data: [], count: 0 };
-                    }
-                })
-                .then(bookList => {
-                    setBooks(bookList.data);
-                    setCount(bookList.count);
-                })
-                .catch(error => {
-                    console.error('Error getting books:', error);
-                });
+                    .then(response => {
+                        if (response.status === 200) {
+                            return response.json();
+                        } else if (response.status === 404) {
+                            console.log("BAD")
+                            return { data: [], count: 0 };
+                        }
+                    })
+                    .then(bookList => {
+                        setBooks(bookList.data);
+                        setCount(bookList.count);
+                    })
+                    .catch(error => {
+                        console.error('Error getting books:', error);
+                    });
             }
         })
     }
@@ -100,7 +100,7 @@ const Home = () => {
             <div className="content-wrapper">
                 <Sidebar />
                 <div className="home-main-content">
-                    <BookTable books={books} removeBook={removeReadLater}/>
+                    <BookTable books={books} removeBook={removeReadLater} />
                     <div className="pagination-container">
                         <span>{count} books in your to-do list</span>
                     </div>

@@ -1,11 +1,10 @@
-import React from 'react';
 import "./generalHeader.css"
-
-const generalHeader = ({position = 'center'}) => {
+const generalHeader = () => {
 
     return (
-        <div className="header">
-            <div className="logo">MidReads</div>
+        <div className="generalHeader">
+            <div className="generalLogo">MidReads</div>
+            <div className="generalSpacer"></div>
         </div>
     );
 }

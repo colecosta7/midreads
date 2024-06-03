@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../sidebar';
-import Header from '../header';
+import Header from '../generalHeader';
 import './profilePage.css';
 import { useAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
