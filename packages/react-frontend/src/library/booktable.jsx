@@ -34,6 +34,7 @@ const BookTable = ({ books }) => {
             if (result.status == 200) {
               setRateMessage("Rating updated.");
               setShowRateMessage(true);
+              book.ranking = rating;
             } else {
               setRateMessage("Unknown error occurred");
               setShowRateMessage(true);
@@ -65,7 +66,7 @@ const BookTable = ({ books }) => {
                         <td>{book.title}</td>
                         <td>{book.author}</td>
                         <td>{book.numPages}</td>
-                        <td>{book.ranking}</td>
+                        <td><b>{book.ranking}</b></td>
                         <td>
                             <button id={`ratingbutton-${book._id}`} type="button"
                                     onClick={() => { setSelectedBookId(book._id);
@@ -89,7 +90,7 @@ const BookTable = ({ books }) => {
                                 <div style={{ padding: '10px',
                                                 paddingTop: '0px',
                                                 display: 'inline-block' }}>
-                                    <button onClick={() => {rateBook(currentUser.uid, book, rating);}}>
+                                    <button onClick={() => { rateBook(currentUser.uid, book, rating); }}>
                                     Rate
                                     </button>
                                 </div>
