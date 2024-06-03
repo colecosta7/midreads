@@ -4,7 +4,6 @@ import cors from "cors";
 import userServices from "./services/userServices.mjs";
 import bookServices from "./services/book-services.mjs";
 import ratingServices from "./services/rating-services.mjs";
-import uploadRoutes from "./uploadroutes.mjs";
 
 const app = express();
 const port = 8000;
@@ -123,6 +122,16 @@ app.put("/rateBook", async (req, res) => {
   });
 })
 
+app.put("/updateBio", async (req, res) => {
+  const user = req.body.user;
+  const url = req.body.url;
+
+  let promise = userServices.updatePhoto(user.uid, url);
+  promise.then(result => {
+    res.status(200).send("bio updated");
+  })
+})
+
 app.post("/rateBook", async (req, res) => {
   const rating = req.body;
   console.log(req);
@@ -215,8 +224,6 @@ app.get("/getFriendData", async (req, res) => {
     }
   })
 })
-
-app.use('/api/uploads', uploadRoutes);
 
 app.listen(port, () => {
     console.log(

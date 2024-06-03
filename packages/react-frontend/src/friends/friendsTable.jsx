@@ -72,7 +72,7 @@ const FriendsTable = ({ friendIds }) => {
             <tbody>
                 {friends.map(friend => (
                     <tr key={friend._id}>
-                        <td>{friend.photo}</td>
+                        <img src={friend.photoURL} alt="Avatar" className = "avatar" />
                         <td>{friend.userName}</td>
                         <td>{friend.pageCount}</td>
                         <td><button onClick={() => (navigate(`/profile/${friend._id}`, { state: { friend } }))}>Visit Profile</button></td>
