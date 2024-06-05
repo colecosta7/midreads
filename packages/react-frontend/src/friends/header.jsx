@@ -14,7 +14,7 @@ const Header = ({ onSearch }) => {
         };
         
         console.log(friendData);
-        const url = new URL("http://localhost:8000/addFriend");
+        const url = new URL("http://3.142.68.171:8000/addFriend");
    
         const promise = fetch(url, {
             method: "PUT",
