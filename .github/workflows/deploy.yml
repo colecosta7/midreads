@@ -19,7 +19,7 @@ jobs:
         node-version: 20
 
     - name: Install dependencies
-      run: npm install
+      run: sudo npm install
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -45,6 +45,5 @@ jobs:
         key: ${{ secrets.AWS_SSH_KEY }}
         script: |
           cd /home/${{ secrets.EC2_USER }}/midreads
-          sudo npm install
           sudo npm run -w react-frontend build
           sudo npm run -w react-frontend dev
