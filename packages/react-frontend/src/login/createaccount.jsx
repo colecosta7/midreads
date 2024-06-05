@@ -51,7 +51,7 @@ function CreateAccount() {
       userName: email,
       uid: uid
     };
-    const promise = fetch("http://localhost:8000/createUser", {
+    const promise = fetch("http://3.142.68.171:8000/createUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
