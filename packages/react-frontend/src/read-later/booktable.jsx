@@ -22,7 +22,7 @@ const BookTable = ({ books, removeBook }) => {
               rating: rating
             };
       
-          const promise = fetch("http://localhost:8000/rateBook", {
+          const promise = fetch("http://3.142.68.171:8000/rateBook", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
