@@ -49,3 +49,5 @@ jobs:
           sudo npm run -w react-frontend build
           pm2 delete react-frontend || true
           pm2 start npm --name "react-frontend" -- run -w react-frontend dev
+          pm2 save
+          pm2 startup systemd -u ${{ secrets.EC2_USER }} --hp /home/${{ secrets.EC2_USER }}
