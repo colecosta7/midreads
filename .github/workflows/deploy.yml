@@ -51,3 +51,4 @@ jobs:
           pm2 start npm --name "react-frontend" -- run -w react-frontend dev
           pm2 save
           pm2 startup systemd -u ${{ secrets.EC2_USER }} --hp /home/${{ secrets.EC2_USER }}
+          sudo systemctl enable pm2-${{ secrets.EC2_USER }}
