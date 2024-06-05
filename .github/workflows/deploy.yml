@@ -44,6 +44,8 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.AWS_SSH_KEY }}
         script: |
+          sudo npm install pm2@latest -g
           cd /home/${{ secrets.EC2_USER }}/midreads
           sudo npm run -w react-frontend build
-          sudo npm run -w react-frontend dev
+          pm2 delete react-frontend || true
+          pm2 start npm --name "react-frontend" -- run -w react-frontend dev
