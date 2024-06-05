@@ -55,7 +55,7 @@ const Home = () => {
     };
 
     function getBooks(search, currentPage) {
-        const url = new URL("http://localhost:8000/getBook");
+        const url = new URL("http://3.142.68.171:8000/getBook");
         url.searchParams.append("title", search);
         url.searchParams.append("page", currentPage);
 
