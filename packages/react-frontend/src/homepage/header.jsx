@@ -37,7 +37,7 @@ const Header = ({ onSearch }) => {
             return
         }
 
-        const promise = fetch("http://localhost:8000/addBook", {
+        const promise = fetch("http://3.142.68.171:8000/addBook", {
             method: "POST",
             headers: {
                 "content-type": "application/json",
