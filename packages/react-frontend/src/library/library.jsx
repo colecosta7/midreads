@@ -35,7 +35,7 @@ const Library = () => {
                 .then(bookList => {
                     const promises = [];
                     for (const book of bookList.data) {
-                        const url = new URL("http://localhost:8000/getRating");
+                        const url = new URL("http://3.142.68.171:8000/getRating");
                         url.searchParams.append("by", currentUser.uid);
                         url.searchParams.append("about", book._id);
 
@@ -72,7 +72,7 @@ const Library = () => {
 
     function getBooks(uid) {
         //console.log(currentUser);
-        const url = new URL("http://localhost:8000/getBook");
+        const url = new URL("http://3.142.68.171:8000/getBook");
         url.searchParams.append("uid", uid);
 
         return fetch(url, {
