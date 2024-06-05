@@ -46,4 +46,4 @@ jobs:
         script: |
           cd /home/${{ secrets.EC2_USER }}/midreads
           sudo npm run -w react-frontend build
-          sudo npm run -w react-frontend dev -- --host 0.0.0.0
+          sudo npm run -w react-frontend dev
