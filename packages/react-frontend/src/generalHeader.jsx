@@ -1,4 +1,5 @@
 import "./generalHeader.css"
+import React from 'react'
 const generalHeader = () => {
 
     return (
