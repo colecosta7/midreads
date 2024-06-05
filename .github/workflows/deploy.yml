@@ -47,4 +47,4 @@ jobs:
           cd /home/${{ secrets.EC2_USER }}/midreads
           npm install
           npm run -w react-frontend build
-          npm run -w react-frontend dev
+          npm run -w react-frontend dev -- --host 0.0.0.0
