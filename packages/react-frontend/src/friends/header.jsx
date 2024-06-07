@@ -14,7 +14,7 @@ const Header = ({ onSearch }) => {
         };
         
         console.log(friendData);
-        const url = new URL("http://3.142.68.171:8000/addFriend");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/addFriend");
    
         const promise = fetch(url, {
             method: "PUT",
