@@ -20,7 +20,7 @@ const FriendsTable = ({ friendIds }) => {
 
     async function fetchFriendsDetails(user) {
         console.log("Searching", user);
-        const url = new URL("http://3.142.68.171:8000/getFriendData");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getFriendData");
         url.searchParams.append("user", user);
         const response = await fetch(url, {
             method: 'GET',
@@ -41,7 +41,7 @@ const FriendsTable = ({ friendIds }) => {
 
     async function handlePages(friend) {
         console.log("FRIEND: ", friend.uid);
-        const url = new URL("http://3.142.68.171:8000/getLibPages");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getLibPages");
         url.searchParams.append("uid", friend.uid);
         const response = await fetch(url, {
             method: "GET",
