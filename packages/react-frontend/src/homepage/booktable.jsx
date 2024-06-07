@@ -26,7 +26,7 @@ const BookTable = ({ books }) => {
             rating: rating
           };
     
-        const promise = fetch("http://3.142.68.171:8000/rateBook", {
+        const promise = fetch("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/rateBook", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const BookTable = ({ books }) => {
         }
         console.log(uid);
         console.log(book);
-        const promise = fetch("http://3.142.68.171:8000/readLater", {
+        const promise = fetch("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/readLater", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
