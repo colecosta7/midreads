@@ -36,7 +36,7 @@ const Profile = () => {
     const fetchUserPhoto = async () => {
         try {
             console.log(`Fetching photo for UID: ${friend.uid}`);
-            const response = await fetch(`http://3.142.68.171:8000/api/uploads/getUserPhoto?uid=${friend.uid}`);
+            const response = await fetch(`http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/api/uploads/getUserPhoto?uid=${friend.uid}`);
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -68,7 +68,7 @@ const Profile = () => {
     }
 
     const handleCount = async () => {
-        const url = new URL("http://3.142.68.171:8000/getLibCount");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getLibCount");
         url.searchParams.append("uid", friend.uid);
 
         const response = await fetch(url, {
@@ -83,7 +83,7 @@ const Profile = () => {
     };
 
     const handlePages = async () => {
-        const url = new URL("http://3.142.68.171:8000/getLibPages");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getLibPages");
         url.searchParams.append("uid", friend.uid);
 
         const response = await fetch(url, {
