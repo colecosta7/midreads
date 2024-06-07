@@ -55,7 +55,7 @@ const Home = () => {
     };
 
     function getBooks(search, currentPage) {
-        const url = new URL("http://3.142.68.171:8000/getBook");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getBook");
         url.searchParams.append("title", search);
         url.searchParams.append("page", currentPage);
 
