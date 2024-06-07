@@ -46,7 +46,7 @@ const Home = () => {
 
 
     function getBooks(uid) {
-        const url = new URL("http://3.142.68.171:8000/getBook");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getBook");
         url.searchParams.append("uid", uid);
         url.searchParams.append("later", 7);
 
@@ -63,7 +63,7 @@ const Home = () => {
             uid: uid,
             book: book
         }
-        const promise = fetch("http://3.142.68.171:8000/removeReadLater", {
+        const promise = fetch("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/removeReadLater", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
