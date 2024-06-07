@@ -35,7 +35,7 @@ const Profile = () => {
     }, [pages]);
 
     const handleBioInit = () => {
-        const url = new URL("http://3.142.68.171:8000/getBio");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getBio");
         url.searchParams.append("uid", currentUser.uid);
 
         const promise = fetch(url, {
@@ -80,7 +80,7 @@ const Profile = () => {
 
     const onEditClick = () => {
         if (editing) {
-            const promise = fetch("http://3.142.68.171:8000/updateBio", {
+            const promise = fetch("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/updateBio", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const Profile = () => {
     };
 
     const handleCount = async () => {
-        const url = new URL("http://3.142.68.171:8000/getLibCount");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getLibCount");
         url.searchParams.append("uid", currentUser.uid);
 
         const response = await fetch(url, {
@@ -109,7 +109,7 @@ const Profile = () => {
     };
 
     const handlePages = async () => {
-        const url = new URL("http://3.142.68.171:8000/getLibPages");
+        const url = new URL("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/getLibPages");
         url.searchParams.append("uid", currentUser.uid);
 
         const response = await fetch(url, {
@@ -127,7 +127,7 @@ const Profile = () => {
         if (e.target.files[0]) {
             setPhoto(e.target.files[0])
             console.log("USERPHOTO", currentUser.photoURL);
-            const promise = fetch("http://3.142.68.171:8000/updatePhoto", {
+            const promise = fetch("http://ec2-3-142-68-171.us-east-2.compute.amazonaws.com:8000/updatePhoto", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
