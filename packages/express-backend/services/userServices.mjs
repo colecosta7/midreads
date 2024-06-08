@@ -78,6 +78,7 @@ async function updateBio(uid, bio) {
 async function getUserBio(uid) {
   let user = await userModel.findOne({ uid: uid });
   if(!user){
+    console.log("user not found");
     return null;
   }
   let bio = user.bio
@@ -92,6 +93,7 @@ async function getUserLibrary(uid) {
     return library;
   }
   else{
+    console.log("user not found");
     return null;
   }
 }
@@ -100,6 +102,7 @@ async function getUserReadLater(uid) {
   let user = await userModel.findOne({ uid: uid });
 
   if(!user){
+    console.log("user not found");
     return null;
   }
   let readLater = await Promise.all(user.booksToRead.map(bookId => bookModel.findById(bookId)));
@@ -114,6 +117,7 @@ async function getCountLibrary(uid) {
     return count;
   }
   else{
+    console.log("user not found");
     return 0;
   }
 }
@@ -122,6 +126,7 @@ async function getCountTotalPages(uid) {
   //let user = await userModel.findOne({ uid: uid});
   let books = await getUserLibrary(uid)
   if (!books){
+    console.log("books not found");
     return 0;
   }
   let pages = books.reduce((sum, book) => sum + book.numPages, 0);
