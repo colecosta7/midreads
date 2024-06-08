@@ -85,11 +85,13 @@ async function getUserBio(uid) {
 
 async function getUserLibrary(uid) {
   let user = await userModel.findOne({ uid: uid });
-  let library = user.library;
-  if(user.library){
+  if(user && user.library){
     let library = await Promise.all(user.library.map(bookId => bookModel.findById(bookId)));
+    return library;
   }
-  return library;
+  else{
+    return null;
+  }
 }
 
 async function getUserReadLater(uid) {
@@ -102,7 +104,7 @@ async function getUserReadLater(uid) {
 
 async function getCountLibrary(uid) {
   let user = await userModel.findOne({ uid: uid});
-  if(user.library){
+  if(user && user.library){
     let count = user.library.length;
     return count;
   }
