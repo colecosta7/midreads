@@ -77,7 +77,9 @@ async function updateBio(uid, bio) {
 
 async function getUserBio(uid) {
   let user = await userModel.findOne({ uid: uid });
-
+  if(!user){
+    return null;
+  }
   let bio = user.bio
   return bio
 }
@@ -97,6 +99,9 @@ async function getUserLibrary(uid) {
 async function getUserReadLater(uid) {
   let user = await userModel.findOne({ uid: uid });
 
+  if(!user){
+    return null;
+  }
   let readLater = await Promise.all(user.booksToRead.map(bookId => bookModel.findById(bookId)));
   
   return readLater;
