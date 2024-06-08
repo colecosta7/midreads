@@ -46,7 +46,6 @@ jobs:
         script: |
           sudo npm install pm2@latest -g
           cd /home/${{ secrets.EC2_USER }}/midreads
-          sudo npm run -w react-frontend build
           pm2 delete react-frontend || true
           pm2 start npm --name "react-frontend" -- run -w react-frontend dev
           pm2 delete express-backend || true
